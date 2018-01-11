@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.VueResource = require('vue-resource');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -17,6 +18,9 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
+Vue.component('saldo-conta', require('./components/SaldoConta.vue'));
+Vue.component('investimentos', require('./components/Investimentos.vue'));
+Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
 
 const app = new Vue({
     el: '#app'

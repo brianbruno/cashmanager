@@ -1,29 +1,10 @@
 <template>
-    <div class="container">
-         <div class="row">
-        <div class="col s12">
-          <div class="card">
-            <div class="card-image">
-              <span class="card-title">Cash Manager</span>
-            </div>
-            <div class="card-content">
-              <p>
-								Investimentos hoje:
-							</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</template>
 
-<script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
-</script>
+    <div class="row">
+        <div class="col s12">
+            <saldo-conta></saldo-conta>
+            <investimentos></investimentos>
+        </div>
+    </div>
+
+</template>

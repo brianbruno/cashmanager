@@ -19,3 +19,24 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
+Route::get('/home/{returnType?}', function($returnType = 'view'){
+    $homeController = app()->make('\App\Http\Controllers\HomeController');
+    return $homeController->index($returnType);
+})->middleware('auth')->name('home');
+
+Route::get('/home/ultimosInvestimentos/{returnType?}', function($returnType = 'view'){
+    $homeController = app()->make('\App\Http\Controllers\HomeController');
+    if($returnType == 'view')
+        return $homeController->index($returnType);
+    else
+        return $homeController->getCincoUltimosInvestimentos();
+})->middleware('auth')->name('home');
+
+Route::get('/home/getSaldo/{returnType?}', function($returnType = 'view'){
+    $homeController = app()->make('\App\Http\Controllers\HomeController');
+    if($returnType == 'view')
+        return $homeController->index($returnType);
+    else
+        return $homeController->getSaldo();
+})->middleware('auth')->name('home');
+

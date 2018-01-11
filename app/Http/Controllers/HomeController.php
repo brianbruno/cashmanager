@@ -35,4 +35,45 @@ class HomeController extends Controller {
       
         return view('dashboard.home', ['investimentosHoje' => empty($investimentosHoje[0])]);      
     }
+
+    public function getCincoUltimosInvestimentos () {
+        $user = Auth::user();
+        $ultimosCincoInvestimentos = DB::table('investimentos')
+            ->select('tipo_investimento', DB::raw("format(valor,2,'de_DE') as valor"), DB::raw("format(lucro,2,'de_DE') as lucro"))
+            ->where('user_id', $user->user_id)
+            ->limit(5)
+            ->get();
+
+        $arrayInvestimentos = array("investimentos" => $ultimosCincoInvestimentos);
+
+        return $this->resposta($arrayInvestimentos, 'json');
+    }
+
+    public function getSaldo() {
+        $user = Auth::user();
+        $saldo = DB::table('saldo_contas')
+            ->select(DB::raw("format(saldo,2,'de_DE') as saldo"))
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        $arraySaldo = array("saldo" => $saldo);
+
+        return $this->resposta($arraySaldo, 'json');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param String $returnType
+     * @param array $array
+     * @param String $view
+     * @return \Illuminate\Http\Response
+     */
+    public function resposta($array, $returnType, $view = 'home'){
+        if($returnType == 'json')
+            return response()->json($array);
+        else
+            return view($view, $array);
+
+    }
 }
