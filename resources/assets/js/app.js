@@ -21,6 +21,7 @@ Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('saldo-conta', require('./components/SaldoConta.vue'));
 Vue.component('investimentos', require('./components/Investimentos.vue'));
 Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
+Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
 
 const app = new Vue({
     el: '#app'

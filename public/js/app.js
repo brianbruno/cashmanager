@@ -1104,6 +1104,7 @@ Vue.component('dashboard', __webpack_require__(44));
 Vue.component('saldo-conta', __webpack_require__(46));
 Vue.component('investimentos', __webpack_require__(54));
 Vue.component('sc-loading', __webpack_require__(57));
+Vue.component('novo-investimento', __webpack_require__(67));
 
 var app = new Vue({
   el: '#app'
@@ -44656,7 +44657,11 @@ var render = function() {
       { staticClass: "col s12" },
       [_c("saldo-conta"), _vm._v(" "), _c("investimentos")],
       1
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12" }, [_c("novo-investimento")], 1)
+    ])
   ])
 }
 var staticRenderFns = []
@@ -45572,6 +45577,227 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(68)
+/* template */
+var __vue_template__ = __webpack_require__(69)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\investimentos\\NovoInvestimento.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-97e4d8d8", Component.options)
+  } else {
+    hotAPI.reload("data-v-97e4d8d8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card light-green lighten-3" }, [
+      _c("form", { staticClass: "col s12" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s6" }, [
+            _c("input", {
+              staticClass: "validate",
+              attrs: {
+                placeholder: "Placeholder",
+                id: "first_name",
+                type: "text"
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "first_name" } }, [
+              _vm._v("First Name")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field col s6" }, [
+            _c("input", {
+              staticClass: "validate",
+              attrs: { id: "last_name", type: "text" }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last Name")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12" }, [
+            _c("input", {
+              staticClass: "validate",
+              attrs: {
+                disabled: "",
+                value: "I am not editable",
+                id: "disabled",
+                type: "text"
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "disabled" } }, [_vm._v("Disabled")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12" }, [
+            _c("input", {
+              staticClass: "validate",
+              attrs: { id: "password", type: "password" }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "password" } }, [_vm._v("Password")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12" }, [
+            _c("input", {
+              staticClass: "validate",
+              attrs: { id: "email", type: "email" }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [_vm._v("Email")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col s12" }, [
+            _vm._v(
+              "\n                This is an inline input field:\n                "
+            ),
+            _c("div", { staticClass: "input-field inline" }, [
+              _c("input", {
+                staticClass: "validate",
+                attrs: { id: "email", type: "email" }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  attrs: {
+                    for: "email",
+                    "data-error": "wrong",
+                    "data-success": "right"
+                  }
+                },
+                [_vm._v("Email")]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-97e4d8d8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
