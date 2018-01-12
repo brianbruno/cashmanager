@@ -57,9 +57,7 @@ class InvestimentosController extends Controller {
             ->get();
 
         $investimentosHoje = $queryInvestimento[0]->investimentos_count;
-
-        if($investimentosHoje == 0)
-            $investimentosHoje = 1;
+        $investimentosHoje = $investimentosHoje+1;
 
         $investimento_id = $investimento_prefix.str_pad($investimentosHoje, 4, "0", STR_PAD_LEFT);
 
