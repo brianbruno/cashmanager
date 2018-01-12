@@ -60,20 +60,4 @@ class HomeController extends Controller {
 
         return $this->resposta($arraySaldo, 'json');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param String $returnType
-     * @param array $array
-     * @param String $view
-     * @return \Illuminate\Http\Response
-     */
-    public function resposta($array, $returnType, $view = 'home'){
-        if($returnType == 'json')
-            return response()->json($array);
-        else
-            return view($view, $array);
-
-    }
 }

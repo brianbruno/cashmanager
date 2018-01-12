@@ -19,29 +19,26 @@
 </head>
 <body>
     <div id="app">
+
+        <ul id="dropdownUser" class="dropdown-content">
+            <li><a href="#!">Minha Conta</a></li>
+            <li>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+        </ul>
+
+
         <nav class="nav-wrapper teal darken-4">
             <a class="brand-logo" href="{{ url('/') }}">Cash Manager</a>
-
             <ul class="right hide-on-med-and-down">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
-
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
+                <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdownUser">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
 
@@ -52,6 +49,12 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
+    <script>
 
+        $(document).ready(function() {
+            $(".dropdown-trigger").dropdown();
+        });
+
+    </script>
 </body>
 </html>

@@ -40,3 +40,16 @@ Route::get('/home/getSaldo/{returnType?}', function($returnType = 'view'){
         return $homeController->getSaldo();
 })->middleware('auth')->name('home');
 
+Route::get('/investimentos', function(){
+
+    $homeController = app()->make('\App\Http\Controllers\InvestimentosController');
+    return $homeController->index();
+
+})->middleware('auth')->name('investimentos');
+
+Route::post('/investimentos/save', function(Illuminate\Http\Request $request){
+    $investimentosController = app()->make('\App\Http\Controllers\InvestimentosController');
+    return $investimentosController->store($request);
+
+})->middleware('auth')->name('save-investimento');
+

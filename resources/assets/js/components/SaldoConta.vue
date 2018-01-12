@@ -1,6 +1,6 @@
 <template>
         <div class="col s12 m6">
-            <div class="card light-green lighten-3">
+            <div class="card green lighten-5">
                 <div class="card-content" id="divSaldo">
                     <span class="card-title black-text">Saldo</span>
                     <div class="center-align">
