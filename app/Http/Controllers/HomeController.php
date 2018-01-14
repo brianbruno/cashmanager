@@ -102,4 +102,38 @@ class HomeController extends Controller {
 
         return $this->resposta($arrayLucro, 'json');
     }
+
+    public function getChartDataHora() {
+        $user = Auth::user();
+
+        $horas = [];
+        $lucros = [];
+
+        array_push($horas, date('H', strtotime("-23 hour")),
+            date('H', strtotime("-22 hour")), date('H', strtotime("-21 hour")),
+            date('H', strtotime("-20 hour")), date('H', strtotime('-19 hour')),
+            date('H', strtotime("-18 hour")), date('H', strtotime("-17 hour")),
+            date('H', strtotime("-16 hour")), date('H', strtotime("-15 hour")),
+            date('H', strtotime("-14 hour")), date('H', strtotime("-13 hour")),
+            date('H', strtotime("-12 hour")), date('H', strtotime("-11 hour")),
+            date('H', strtotime("-10 hour")), date('H', strtotime('-9 hour')),
+            date('H', strtotime("-8 hour")), date('H', strtotime("-7 hour")),
+            date('H', strtotime("-6 hour")), date('H', strtotime("-5 hour")),
+            date('H', strtotime("-4 hour")), date('H', strtotime("-3 hour")),
+            date('H', strtotime("-3 hour")), date('H', strtotime('-1 hour')),
+            date('H'));
+
+        foreach ($horas as $hora) {
+            $lucro = DB::table('investimentos')
+                ->select(DB::raw('COALESCE(SUM(lucro),0) as lucro'))
+                ->where('user_id', $user->user_id)
+                ->where(DB::raw('HOUR(created_at)'), $hora)
+                ->get();
+            array_push($lucros, $lucro[0]->lucro);
+        }
+
+        $arrayLucro = array("lucro" => $lucros, "horas" => $horas);
+
+        return $this->resposta($arrayLucro, 'json');
+    }
 }

@@ -105,3 +105,11 @@ Route::get('/chart/dashboard/{returnType?}', function($returnType = 'view'){
     else
         return $homeController->getChartData();
 })->middleware('auth')->name('chart-dashboard');
+
+Route::get('/chart/dashboard/dia/{returnType?}', function($returnType = 'view'){
+    $homeController = app()->make('\App\Http\Controllers\HomeController');
+    if($returnType == 'view')
+        return $homeController->index($returnType);
+    else
+        return $homeController->getChartDataHora();
+})->middleware('auth')->name('chart-dashboard-hora');

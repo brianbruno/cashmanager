@@ -25,6 +25,7 @@ Vue.component('novo-investimento', require('./components/investimentos/NovoInves
 Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));
 Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
 Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
+Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHora.vue'));
 
 const app = new Vue({
     el: '#app'
