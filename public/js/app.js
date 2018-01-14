@@ -11365,6 +11365,8 @@ Vue.component('saldo-conta', __webpack_require__(46));
 Vue.component('investimentos', __webpack_require__(54));
 Vue.component('sc-loading', __webpack_require__(57));
 Vue.component('novo-investimento', __webpack_require__(59));
+Vue.component('nova-movimentacao', __webpack_require__(70));
+Vue.component('tabela-investimentos', __webpack_require__(73));
 
 var app = new Vue({
   el: '#app'
@@ -45123,6 +45125,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {},
@@ -45130,34 +45149,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             investimentosHoje: 0,
             saldo: [],
-            isLoading: false,
-            exibirSaldo: false
+            lucro: [],
+            isLoadingSaldo: false,
+            isLoadingLucro: false,
+            exibirSaldo: false,
+            exibirLucro: false
         };
     },
 
     methods: {
-        showLoading: function showLoading() {
-            this.isLoading = true;
+        showLoadingSaldo: function showLoadingSaldo() {
+            this.isLoadingSaldo = true;
         },
-        hideLoading: function hideLoading() {
-            this.isLoading = false;
+        hideLoadingSaldo: function hideLoadingSaldo() {
+            this.isLoadingSaldo = false;
+        },
+        showLoadingLucro: function showLoadingLucro() {
+            this.isLoadingLucro = true;
+        },
+        hideLoadingLucro: function hideLoadingLucro() {
+            this.isLoadingLucro = false;
         },
         carregarInvestimentos: function carregarInvestimentos() {
 
             var t = this;
-            this.showLoading();
+            this.showLoadingSaldo();
 
             this.$http.get('/home/getSaldo/json').then(function (response) {
                 t.saldo = response.body.saldo[0].saldo;
             }, function (error) {
                 console.log(error);
             }).finally(function () {
-                t.hideLoading();
+                t.hideLoadingSaldo();
+            });
+        },
+        carregarSaldo: function carregarSaldo() {
+
+            var t = this;
+            this.showLoadingLucro();
+
+            this.$http.get('/home/getLucro/json').then(function (response) {
+                t.lucro = response.body.lucro[0].lucro;
+            }, function (error) {
+                console.log(error);
+            }).finally(function () {
+                t.hideLoadingLucro();
             });
         },
         clickExibirSaldo: function clickExibirSaldo() {
             this.exibirSaldo = true;
             this.carregarInvestimentos();
+        },
+        clickExibirLucro: function clickExibirLucro() {
+            this.exibirLucro = true;
+            this.carregarSaldo();
         }
     }
 });
@@ -45213,8 +45258,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.isLoading,
-                    expression: "isLoading"
+                    value: _vm.isLoadingSaldo,
+                    expression: "isLoadingSaldo"
                   }
                 ]
               }),
@@ -45226,14 +45271,87 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: !_vm.isLoading,
-                      expression: "!isLoading"
+                      value: !_vm.isLoadingSaldo,
+                      expression: "!isLoadingSaldo"
                     }
                   ],
                   staticClass: "center-align",
                   attrs: { id: "saldoConta" }
                 },
                 [_c("h5", [_vm._v("R$ " + _vm._s(_vm.saldo))])]
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card green lighten-5" }, [
+      _c("div", { staticClass: "card-content", attrs: { id: "divLucro" } }, [
+        _c("span", { staticClass: "card-title black-text" }, [
+          _vm._v("Lucro últimos sete dias")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "center-align" }, [
+          _c(
+            "a",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.exibirLucro,
+                  expression: "!exibirLucro"
+                }
+              ],
+              staticClass: "waves-effect waves-light btn-large orange accent-4",
+              attrs: { id: "btnExibirLucro" },
+              on: { click: _vm.clickExibirLucro }
+            },
+            [_vm._v("\n                    Exibir lucro\n                ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.exibirLucro,
+                  expression: "exibirLucro"
+                }
+              ],
+              attrs: { id: "exibirLucro" }
+            },
+            [
+              _c("sc-loading", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isLoadingLucro,
+                    expression: "isLoadingLucro"
+                  }
+                ]
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.isLoadingLucro,
+                      expression: "!isLoadingLucro"
+                    }
+                  ],
+                  staticClass: "center-align",
+                  attrs: { id: "lucroContas" }
+                },
+                [_c("h5", [_vm._v("R$ " + _vm._s(_vm.lucro))])]
               )
             ],
             1
@@ -45646,20 +45764,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         $(document).ready(function () {
             jQuery('select').select();
         });
+        this.getContas();
     },
     data: function data() {
         return {
-            investimentosHoje: 0,
-            valor: '',
-            tipo: 'OPCAO',
-            lucro: '',
-            newInvestimento: { 'tipo': 'OPCAO', 'valor': '', 'lucro': '' },
+            newInvestimento: { 'tipo': 'OPCAO', 'valor': '', 'lucro': '', 'conta_id': '' },
+            contas: { 'conta_id': '', 'nome': '' },
             isLoading: false,
             exibirSaldo: false
         };
@@ -45684,6 +45807,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.formErrors = response.data;
             }).finally(function () {
                 this.hideLoading();
+            });
+        },
+        getContas: function getContas() {
+            var _this2 = this;
+
+            this.showLoading();
+            this.$http.get('/contas/getContas/json').then(function (response) {
+                _this2.contas = response.body.contas;
+            }, function (response) {
+                _this2.formErrors = response.data;
+            }).finally(function () {
+                this.hideLoading();
+                jQuery('select').select();
             });
         }
     }
@@ -45776,7 +45912,61 @@ var render = function() {
                     _c("label", [_vm._v("Tipo de investimento")])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s6" }, [
+                  _c("div", { staticClass: "input-field col s12" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newInvestimento.conta_id,
+                            expression: "newInvestimento.conta_id"
+                          }
+                        ],
+                        attrs: { name: "conta", required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.newInvestimento,
+                              "conta_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Escolha a conta")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.contas, function(conta) {
+                          return _c(
+                            "option",
+                            { domProps: { value: conta.conta_id } },
+                            [_vm._v(_vm._s(conta.nome))]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Conta")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-field col s12" }, [
                     _c("input", {
                       directives: [
                         {
@@ -45813,7 +46003,7 @@ var render = function() {
                     _c("label", { attrs: { for: "valor" } }, [_vm._v("Valor")])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s6" }, [
+                  _c("div", { staticClass: "input-field col s12" }, [
                     _c("input", {
                       directives: [
                         {
@@ -45923,6 +46113,627 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(71)
+/* template */
+var __vue_template__ = __webpack_require__(72)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\contas\\NovaMovimentacao.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6b2e32e0", Component.options)
+  } else {
+    hotAPI.reload("data-v-6b2e32e0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        $(document).ready(function () {
+            jQuery('select').select();
+        });
+        this.getContas();
+    },
+    data: function data() {
+        return {
+            newTransacao: { 'tipo': 'S', 'valor': '', 'conta_id': '' },
+            contas: { 'conta_id': '', 'nome': '' },
+            isLoading: false
+        };
+    },
+
+    methods: {
+        showLoading: function showLoading() {
+            this.isLoading = true;
+        },
+        hideLoading: function hideLoading() {
+            this.isLoading = false;
+        },
+
+        createTransacao: function createTransacao() {
+            var _this = this;
+
+            this.showLoading();
+            var input = this.newTransacao;
+            this.$http.post('/contas/transacao/save', input).then(function (response) {
+                _this.newTransacao = { 'tipo': 'E', 'valor': '', 'conta': '' };
+            }, function (response) {
+                _this.formErrors = response.data;
+            }).finally(function () {
+                this.hideLoading();
+            });
+        },
+        getContas: function getContas() {
+            var _this2 = this;
+
+            this.showLoading();
+            this.$http.get('/contas/getContas/json').then(function (response) {
+                _this2.contas = response.body.contas;
+            }, function (response) {
+                _this2.formErrors = response.data;
+            }).finally(function () {
+                this.hideLoading();
+                jQuery('select').select();
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      attrs: { action: "#" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          _vm.createTransacao($event)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLoading,
+                  expression: "!isLoading"
+                }
+              ],
+              staticClass: "card green lighten-5"
+            },
+            [
+              _c("div", { staticClass: "card-content black-text" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "input-field col s4" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newTransacao.tipo,
+                            expression: "newTransacao.tipo"
+                          }
+                        ],
+                        attrs: { name: "tipo" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.newTransacao,
+                              "tipo",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "E" } }, [
+                          _vm._v("Entrada")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "S", selected: "" } }, [
+                          _vm._v("Saída")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Tipo de transação")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-field col s4" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newTransacao.conta_id,
+                            expression: "newTransacao.conta_id"
+                          }
+                        ],
+                        attrs: { name: "conta", required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.newTransacao,
+                              "conta_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Escolha a conta")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.contas, function(conta) {
+                          return _c(
+                            "option",
+                            { domProps: { value: conta.conta_id } },
+                            [_vm._v(_vm._s(conta.nome))]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Conta")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-field col s4" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newTransacao.valor,
+                          expression: "newTransacao.valor"
+                        }
+                      ],
+                      attrs: {
+                        placeholder: "0,00",
+                        id: "valor",
+                        type: "number",
+                        name: "valor",
+                        step: "0.01",
+                        min: "0",
+                        required: ""
+                      },
+                      domProps: { value: _vm.newTransacao.valor },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.newTransacao,
+                            "valor",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "valor" } }, [_vm._v("Valor")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-content black-text" },
+            [
+              _c("sc-loading", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isLoading,
+                    expression: "isLoading"
+                  }
+                ]
+              })
+            ],
+            1
+          )
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-action" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn waves-effect waves-light",
+          attrs: { name: "action" }
+        },
+        [
+          _vm._v("Enviar\n                        "),
+          _c("i", { staticClass: "material-icons right" }, [_vm._v("send")])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6b2e32e0", module.exports)
+  }
+}
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(74)
+/* template */
+var __vue_template__ = __webpack_require__(75)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\investimentos\\TabelaInvestimentos.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3f661404", Component.options)
+  } else {
+    hotAPI.reload("data-v-3f661404", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        this.carregarInvestimentos();
+    },
+    data: function data() {
+        return {
+            investimentosHoje: 0,
+            investimentos: [],
+            isLoading: false
+        };
+    },
+
+    methods: {
+        showLoading: function showLoading() {
+            this.isLoading = true;
+        },
+        hideLoading: function hideLoading() {
+            this.isLoading = false;
+        },
+        carregarInvestimentos: function carregarInvestimentos() {
+
+            var t = this;
+            this.showLoading();
+
+            this.$http.get('/investimentos/tabela/json').then(function (response) {
+                t.investimentos = response.body.investimentos;
+            }, function (error) {
+                console.log(error);
+            }).finally(function () {
+                t.hideLoading();
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col s12" }, [
+    _c("div", { staticClass: "card green lighten-5" }, [
+      _c(
+        "div",
+        { staticClass: "card-content" },
+        [
+          _c("span", { staticClass: "card-title black-text" }, [
+            _vm._v("Investimentos")
+          ]),
+          _vm._v(" "),
+          _c("sc-loading", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.isLoading,
+                expression: "isLoading"
+              }
+            ]
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLoading,
+                  expression: "!isLoading"
+                }
+              ],
+              attrs: { id: "ultimosCincoInvestimentos" }
+            },
+            [
+              _c("table", [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.investimentos, function(investimento) {
+                    return _c("tr", [
+                      _c("td", [
+                        _vm._v(_vm._s(investimento.tipo_investimento))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(investimento.valor))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(investimento.lucro))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(investimento.data))]),
+                      _vm._v(" "),
+                      _vm._m(1, true)
+                    ])
+                  })
+                )
+              ])
+            ]
+          )
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Investimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Lucro")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Editar")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "black-text", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("mode_edit")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f661404", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

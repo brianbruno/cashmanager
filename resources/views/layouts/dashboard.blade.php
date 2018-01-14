@@ -37,6 +37,7 @@
         <nav class="nav-wrapper teal darken-4">
             <a class="brand-logo" href="{{ url('/') }}">Cash Manager</a>
             <ul class="right hide-on-med-and-down">
+                <li><a href="{{ route('contas') }}">Contas</a></li>
                 <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
                 <li><a class="dropdown-trigger" href="#!" data-target="dropdownUser">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>

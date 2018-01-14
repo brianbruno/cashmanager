@@ -22,6 +22,9 @@ Vue.component('saldo-conta', require('./components/SaldoConta.vue'));
 Vue.component('investimentos', require('./components/Investimentos.vue'));
 Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
 Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
+Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));
+Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
+
 
 const app = new Vue({
     el: '#app'

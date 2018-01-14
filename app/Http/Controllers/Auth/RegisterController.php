@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Conta;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -62,10 +63,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $user_id = rand (10000, 99999) . date("y") . date('m');
+
         return User::create([
             'name'      =>  $data['name'],
             'email'     =>  $data['email'],
-            'user_id'   =>  rand (10000, 99999) . date("y") . date('m'),
+            'user_id'   =>  $user_id,
             'password'  =>  bcrypt($data['password']),
         ]);
     }

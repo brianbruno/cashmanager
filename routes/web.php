@@ -12,7 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::check()){
+        $homeController = app()->make('\App\Http\Controllers\HomeController');
+        return $homeController->index();
+        return ;
+    }else{
+        return view('welcome');
+    }
 });
 
 Auth::routes();
@@ -34,10 +40,20 @@ Route::get('/home/ultimosInvestimentos/{returnType?}', function($returnType = 'v
 
 Route::get('/home/getSaldo/{returnType?}', function($returnType = 'view'){
     $homeController = app()->make('\App\Http\Controllers\HomeController');
-    if($returnType == 'view')
+    if ($returnType == 'view')
         return $homeController->index($returnType);
     else
         return $homeController->getSaldo();
+
+})->middleware('auth')->name('home');
+
+Route::get('/home/getLucro/{returnType?}', function($returnType = 'view'){
+    $homeController = app()->make('\App\Http\Controllers\HomeController');
+    if ($returnType == 'view')
+        return $homeController->index($returnType);
+    else
+        return $homeController->getLucro();
+
 })->middleware('auth')->name('home');
 
 Route::get('/investimentos', function(){
@@ -53,3 +69,31 @@ Route::post('/investimentos/save', function(Illuminate\Http\Request $request){
 
 })->middleware('auth')->name('save-investimento');
 
+Route::get('/contas', function(){
+
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    return $contasController->index();
+
+})->middleware('auth')->name('contas');
+
+Route::post('/contas/transacao/save', function(Illuminate\Http\Request $request){
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    return $contasController->storeTransacao($request);
+})->middleware('auth')->name('contas-save-transacao');
+
+Route::get('/contas/getContas/{returnType?}', function($returnType = 'view'){
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    if ($returnType == 'view')
+        return $contasController->index($returnType);
+    else
+        return $contasController->getContas();
+
+})->middleware('auth')->name('home');
+
+Route::get('/investimentos/tabela/{returnType?}', function($returnType = 'view'){
+    $investimentosController = app()->make('\App\Http\Controllers\InvestimentosController');
+    if($returnType == 'view')
+        return $investimentosController->index($returnType);
+    else
+        return $investimentosController->getInvestimentosTabela();
+})->middleware('auth')->name('home');

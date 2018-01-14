@@ -1,31 +1,27 @@
 <template>
-    <form action="#" v-on:submit.prevent="createInvestimento">
+    <form action="#" v-on:submit.prevent="createTransacao">
         <div class="row">
             <div class="col s12">
                 <div v-show="!isLoading" class="card green lighten-5">
                     <div class="card-content black-text">
                         <div class="row">
-                            <div class="input-field col s12">
-                                <select name="tipo" v-model="newInvestimento.tipo">
-                                    <option value="OPCAO"  selected>Opção</option>
-                                    <option value="CRIPTO">Criptomoeda</option>
+                            <div class="input-field col s4">
+                                <select name="tipo" v-model="newTransacao.tipo">
+                                    <option value="E">Entrada</option>
+                                    <option value="S" selected>Saída</option>
                                 </select>
-                                <label>Tipo de investimento</label>
+                                <label>Tipo de transação</label>
                             </div>
-                            <div class="input-field col s12">
-                                <select name="conta" v-model="newInvestimento.conta_id" required>
+                            <div class="input-field col s4">
+                                <select name="conta" v-model="newTransacao.conta_id" required>
                                     <option value="" disabled selected>Escolha a conta</option>
                                     <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
                                 </select>
                                 <label>Conta</label>
                             </div>
-                            <div class="input-field col s12">
-                                <input placeholder="0,00" id="valor" type="number" name="valor" v-model="newInvestimento.valor" step="0.01" min="0" required>
+                            <div class="input-field col s4">
+                                <input placeholder="0,00" id="valor" type="number" name="valor" v-model="newTransacao.valor" step="0.01" min="0" required>
                                 <label for="valor">Valor</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <input placeholder="0,00" id="lucro" type="number" name="lucro" v-model="newInvestimento.lucro" step="0.01" required>
-                                <label for="valor">Lucro</label>
                             </div>
                         </div>
                     </div>
@@ -54,10 +50,9 @@
         },
         data () {
             return {
-                newInvestimento : {'tipo':'OPCAO', 'valor': '','lucro':'','conta_id': ''},
+                newTransacao : {'tipo': 'S', 'valor': '', 'conta_id': ''},
                 contas: {'conta_id': '', 'nome': ''},
-                isLoading: false,
-                exibirSaldo: false
+                isLoading: false
             }
         },
         methods: {
@@ -67,11 +62,11 @@
             hideLoading(){
                 this.isLoading=false;
             },
-            createInvestimento: function(){
+            createTransacao: function(){
                 this.showLoading();
-                var input = this.newInvestimento;
-                this.$http.post('/investimentos/save',input).then((response) => {
-                    this.newInvestimento = {'tipo':'OPCAO', 'valor': '','lucro':''};
+                var input = this.newTransacao;
+                this.$http.post('/contas/transacao/save',input).then((response) => {
+                    this.newTransacao = {'tipo': 'E', 'valor': '', 'conta': ''};
                 }, (response) => {
                     this.formErrors = response.data;
                 }).finally(function () {
