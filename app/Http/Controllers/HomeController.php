@@ -109,25 +109,25 @@ class HomeController extends Controller {
         $horas = [];
         $lucros = [];
 
-        array_push($horas, date('H', strtotime("-23 hour")),
-            date('H', strtotime("-22 hour")), date('H', strtotime("-21 hour")),
-            date('H', strtotime("-20 hour")), date('H', strtotime('-19 hour')),
-            date('H', strtotime("-18 hour")), date('H', strtotime("-17 hour")),
-            date('H', strtotime("-16 hour")), date('H', strtotime("-15 hour")),
-            date('H', strtotime("-14 hour")), date('H', strtotime("-13 hour")),
-            date('H', strtotime("-12 hour")), date('H', strtotime("-11 hour")),
-            date('H', strtotime("-10 hour")), date('H', strtotime('-9 hour')),
-            date('H', strtotime("-8 hour")), date('H', strtotime("-7 hour")),
-            date('H', strtotime("-6 hour")), date('H', strtotime("-5 hour")),
-            date('H', strtotime("-4 hour")), date('H', strtotime("-3 hour")),
-            date('H', strtotime("-3 hour")), date('H', strtotime('-1 hour')),
-            date('H'));
+        array_push($horas, date( 'd-m-Y H', strtotime("-23 hour")),
+            date('d-m-Y H', strtotime("-22 hour")), date('d-m-Y H', strtotime("-21 hour")),
+            date('d-m-Y H', strtotime("-20 hour")), date('d-m-Y H', strtotime('-19 hour')),
+            date('d-m-Y H', strtotime("-18 hour")), date('d-m-Y H', strtotime("-17 hour")),
+            date('d-m-Y H', strtotime("-16 hour")), date('d-m-Y H', strtotime("-15 hour")),
+            date('d-m-Y H', strtotime("-14 hour")), date('d-m-Y H', strtotime("-13 hour")),
+            date('d-m-Y H', strtotime("-12 hour")), date('d-m-Y H', strtotime("-11 hour")),
+            date('d-m-Y H', strtotime("-10 hour")), date('d-m-Y H', strtotime('-9 hour')),
+            date('d-m-Y H', strtotime("-8 hour")), date('d-m-Y H', strtotime("-7 hour")),
+            date('d-m-Y H', strtotime("-6 hour")), date('d-m-Y H', strtotime("-5 hour")),
+            date('d-m-Y H', strtotime("-4 hour")), date('d-m-Y H', strtotime("-3 hour")),
+            date('d-m-Y H', strtotime("-3 hour")), date('d-m-Y H', strtotime('-1 hour')),
+            date('d-m-Y H'));
 
         foreach ($horas as $hora) {
             $lucro = DB::table('investimentos')
                 ->select(DB::raw('COALESCE(SUM(lucro),0) as lucro'))
                 ->where('user_id', $user->user_id)
-                ->where(DB::raw('HOUR(created_at)'), $hora)
+                ->where(DB::raw("date_format(created_at,'%d-%m-%Y %H')"), $hora)
                 ->get();
             array_push($lucros, $lucro[0]->lucro);
         }
