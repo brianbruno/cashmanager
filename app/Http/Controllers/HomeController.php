@@ -120,7 +120,7 @@ class HomeController extends Controller {
             date('d-m-Y H', strtotime("-8 hour")), date('d-m-Y H', strtotime("-7 hour")),
             date('d-m-Y H', strtotime("-6 hour")), date('d-m-Y H', strtotime("-5 hour")),
             date('d-m-Y H', strtotime("-4 hour")), date('d-m-Y H', strtotime("-3 hour")),
-            date('d-m-Y H', strtotime("-3 hour")), date('d-m-Y H', strtotime('-1 hour')),
+            date('d-m-Y H', strtotime("-2 hour")), date('d-m-Y H', strtotime('-1 hour')),
             date('d-m-Y H'));
 
         foreach ($horas as $hora) {
