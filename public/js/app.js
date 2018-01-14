@@ -11332,9 +11332,9 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-__webpack_require__(62);
-__webpack_require__(63);
-module.exports = __webpack_require__(64);
+__webpack_require__(65);
+__webpack_require__(66);
+module.exports = __webpack_require__(67);
 
 
 /***/ }),
@@ -11365,7 +11365,7 @@ Vue.component('saldo-conta', __webpack_require__(46));
 Vue.component('investimentos', __webpack_require__(54));
 Vue.component('sc-loading', __webpack_require__(57));
 Vue.component('novo-investimento', __webpack_require__(59));
-Vue.component('nova-movimentacao', __webpack_require__(70));
+Vue.component('nova-movimentacao', __webpack_require__(62));
 Vue.component('tabela-investimentos', __webpack_require__(73));
 
 var app = new Vue({
@@ -45803,6 +45803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var input = this.newInvestimento;
             this.$http.post('/investimentos/save', input).then(function (response) {
                 _this.newInvestimento = { 'tipo': 'OPCAO', 'valor': '', 'lucro': '' };
+                _this.$emit('atualizou');
             }, function (response) {
                 _this.formErrors = response.data;
             }).finally(function () {
@@ -45847,221 +45848,231 @@ var render = function() {
     [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col s12" }, [
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.isLoading,
-                  expression: "!isLoading"
-                }
-              ],
-              staticClass: "card green lighten-5"
-            },
-            [
-              _c("div", { staticClass: "card-content black-text" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "input-field col s12" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newInvestimento.tipo,
-                            expression: "newInvestimento.tipo"
-                          }
-                        ],
-                        attrs: { name: "tipo" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.newInvestimento,
-                              "tipo",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "OPCAO", selected: "" } },
-                          [_vm._v("Opção")]
-                        ),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "CRIPTO" } }, [
-                          _vm._v("Criptomoeda")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("label", [_vm._v("Tipo de investimento")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s12" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newInvestimento.conta_id,
-                            expression: "newInvestimento.conta_id"
-                          }
-                        ],
-                        attrs: { name: "conta", required: "" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.newInvestimento,
-                              "conta_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "", disabled: "", selected: "" } },
-                          [_vm._v("Escolha a conta")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.contas, function(conta) {
-                          return _c(
-                            "option",
-                            { domProps: { value: conta.conta_id } },
-                            [_vm._v(_vm._s(conta.nome))]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("label", [_vm._v("Conta")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s12" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newInvestimento.valor,
-                          expression: "newInvestimento.valor"
-                        }
-                      ],
-                      attrs: {
-                        placeholder: "0,00",
-                        id: "valor",
-                        type: "number",
-                        name: "valor",
-                        step: "0.01",
-                        min: "0",
-                        required: ""
-                      },
-                      domProps: { value: _vm.newInvestimento.valor },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.newInvestimento,
-                            "valor",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "valor" } }, [_vm._v("Valor")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s12" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newInvestimento.lucro,
-                          expression: "newInvestimento.lucro"
-                        }
-                      ],
-                      attrs: {
-                        placeholder: "0,00",
-                        id: "lucro",
-                        type: "number",
-                        name: "lucro",
-                        step: "0.01",
-                        required: ""
-                      },
-                      domProps: { value: _vm.newInvestimento.lucro },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.newInvestimento,
-                            "lucro",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "valor" } }, [_vm._v("Lucro")])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-content black-text" },
-            [
-              _c("sc-loading", {
-                directives: [
+          _c("div", { staticClass: "card green lighten-5" }, [
+            _c(
+              "div",
+              { staticClass: "card-content black-text" },
+              [
+                _c("span", { staticClass: "card-title black-text" }, [
+                  _vm._v("Novo investimento")
+                ]),
+                _vm._v(" "),
+                _c("sc-loading", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLoading,
+                      expression: "isLoading"
+                    }
+                  ]
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.isLoading,
-                    expression: "isLoading"
-                  }
-                ]
-              })
-            ],
-            1
-          )
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isLoading,
+                        expression: "!isLoading"
+                      }
+                    ],
+                    attrs: { id: "cardInvestimento" }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "input-field col s12" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newInvestimento.tipo,
+                                expression: "newInvestimento.tipo"
+                              }
+                            ],
+                            attrs: { name: "tipo" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.newInvestimento,
+                                  "tipo",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "OPCAO", selected: "" } },
+                              [_vm._v("Opção")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "CRIPTO" } }, [
+                              _vm._v("Criptomoeda")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("label", [_vm._v("Tipo de investimento")])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-field col s12" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newInvestimento.conta_id,
+                                expression: "newInvestimento.conta_id"
+                              }
+                            ],
+                            attrs: { name: "conta", required: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.newInvestimento,
+                                  "conta_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("Escolha a conta")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.contas, function(conta) {
+                              return _c(
+                                "option",
+                                { domProps: { value: conta.conta_id } },
+                                [_vm._v(_vm._s(conta.nome))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("label", [_vm._v("Conta")])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-field col s12" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.newInvestimento.valor,
+                              expression: "newInvestimento.valor"
+                            }
+                          ],
+                          attrs: {
+                            placeholder: "0,00",
+                            id: "valor",
+                            type: "number",
+                            name: "valor",
+                            step: "0.01",
+                            min: "0",
+                            required: ""
+                          },
+                          domProps: { value: _vm.newInvestimento.valor },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.newInvestimento,
+                                "valor",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "valor" } }, [
+                          _vm._v("Valor")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-field col s12" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.newInvestimento.lucro,
+                              expression: "newInvestimento.lucro"
+                            }
+                          ],
+                          attrs: {
+                            placeholder: "0,00",
+                            id: "lucro",
+                            type: "number",
+                            name: "lucro",
+                            step: "0.01",
+                            required: ""
+                          },
+                          domProps: { value: _vm.newInvestimento.lucro },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.newInvestimento,
+                                "lucro",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "valor" } }, [
+                          _vm._v("Lucro")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]
+                )
+              ],
+              1
+            )
+          ])
         ])
       ])
     ]
@@ -46080,7 +46091,7 @@ var staticRenderFns = [
           attrs: { name: "action" }
         },
         [
-          _vm._v("Enviar\n                        "),
+          _vm._v("Enviar\n                            "),
           _c("i", { staticClass: "material-icons right" }, [_vm._v("send")])
         ]
       )
@@ -46098,37 +46109,14 @@ if (false) {
 
 /***/ }),
 /* 62 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(71)
+var __vue_script__ = __webpack_require__(63)
 /* template */
-var __vue_template__ = __webpack_require__(72)
+var __vue_template__ = __webpack_require__(64)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -46167,11 +46155,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 71 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -46268,208 +46258,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 72 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      attrs: { action: "#" },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          _vm.createTransacao($event)
+  return _c("div", [
+    _c(
+      "form",
+      {
+        attrs: { action: "#" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            _vm.createTransacao($event)
+          }
         }
-      }
-    },
-    [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col s12" }, [
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.isLoading,
-                  expression: "!isLoading"
-                }
-              ],
-              staticClass: "card green lighten-5"
-            },
-            [
-              _c("div", { staticClass: "card-content black-text" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "input-field col s4" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newTransacao.tipo,
-                            expression: "newTransacao.tipo"
-                          }
-                        ],
-                        attrs: { name: "tipo" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.newTransacao,
-                              "tipo",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "E" } }, [
-                          _vm._v("Entrada")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "S", selected: "" } }, [
-                          _vm._v("Saída")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("label", [_vm._v("Tipo de transação")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s4" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newTransacao.conta_id,
-                            expression: "newTransacao.conta_id"
-                          }
-                        ],
-                        attrs: { name: "conta", required: "" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.newTransacao,
-                              "conta_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "", disabled: "", selected: "" } },
-                          [_vm._v("Escolha a conta")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.contas, function(conta) {
-                          return _c(
-                            "option",
-                            { domProps: { value: conta.conta_id } },
-                            [_vm._v(_vm._s(conta.nome))]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("label", [_vm._v("Conta")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-field col s4" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newTransacao.valor,
-                          expression: "newTransacao.valor"
-                        }
-                      ],
-                      attrs: {
-                        placeholder: "0,00",
-                        id: "valor",
-                        type: "number",
-                        name: "valor",
-                        step: "0.01",
-                        min: "0",
-                        required: ""
-                      },
-                      domProps: { value: _vm.newTransacao.valor },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.newTransacao,
-                            "valor",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "valor" } }, [_vm._v("Valor")])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-content black-text" },
-            [
-              _c("sc-loading", {
+      },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col s12" }, [
+            _c(
+              "div",
+              {
                 directives: [
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.isLoading,
-                    expression: "isLoading"
+                    value: !_vm.isLoading,
+                    expression: "!isLoading"
                   }
-                ]
-              })
-            ],
-            1
-          )
+                ],
+                staticClass: "card green lighten-5"
+              },
+              [
+                _c("div", { staticClass: "card-content black-text" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "input-field col s4" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.newTransacao.tipo,
+                              expression: "newTransacao.tipo"
+                            }
+                          ],
+                          attrs: { name: "tipo" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.newTransacao,
+                                "tipo",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "E" } }, [
+                            _vm._v("Entrada")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { attrs: { value: "S", selected: "" } },
+                            [_vm._v("Saída")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("label", [_vm._v("Tipo de transação")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-field col s4" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.newTransacao.conta_id,
+                              expression: "newTransacao.conta_id"
+                            }
+                          ],
+                          attrs: { name: "conta", required: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.newTransacao,
+                                "conta_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { value: "", disabled: "", selected: "" }
+                            },
+                            [_vm._v("Escolha a conta")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.contas, function(conta) {
+                            return _c(
+                              "option",
+                              { domProps: { value: conta.conta_id } },
+                              [_vm._v(_vm._s(conta.nome))]
+                            )
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c("label", [_vm._v("Conta")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-field col s4" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newTransacao.valor,
+                            expression: "newTransacao.valor"
+                          }
+                        ],
+                        attrs: {
+                          placeholder: "0,00",
+                          id: "valor",
+                          type: "number",
+                          name: "valor",
+                          step: "0.01",
+                          min: "0",
+                          required: ""
+                        },
+                        domProps: { value: _vm.newTransacao.valor },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.newTransacao,
+                              "valor",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "valor" } }, [
+                        _vm._v("Valor")
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-content black-text" },
+              [
+                _c("sc-loading", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLoading,
+                      expression: "isLoading"
+                    }
+                  ]
+                })
+              ],
+              1
+            )
+          ])
         ])
-      ])
-    ]
-  )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -46484,7 +46482,7 @@ var staticRenderFns = [
           attrs: { name: "action" }
         },
         [
-          _vm._v("Enviar\n                        "),
+          _vm._v("Enviar\n                            "),
           _c("i", { staticClass: "material-icons right" }, [_vm._v("send")])
         ]
       )
@@ -46501,6 +46499,29 @@ if (false) {
 }
 
 /***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46587,10 +46608,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
+        var _this = this;
+
         this.carregarInvestimentos();
+        this.$on('atualizar-tabela-investimentos', function () {
+            return _this.carregarInvestimentos();
+        });
     },
     data: function data() {
         return {
@@ -46619,6 +46650,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).finally(function () {
                 t.hideLoading();
             });
+        },
+        carregarInvestimentosSemLoading: function carregarInvestimentosSemLoading() {
+            var _this2 = this;
+
+            this.$http.get('/investimentos/tabela/json').then(function (response) {
+                _this2.investimentos = response.body.investimentos;
+            }, function (error) {
+                console.log(error);
+            });
         }
     }
 });
@@ -46631,69 +46671,82 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col s12" }, [
-    _c("div", { staticClass: "card green lighten-5" }, [
-      _c(
-        "div",
-        { staticClass: "card-content" },
-        [
-          _c("span", { staticClass: "card-title black-text" }, [
-            _vm._v("Investimentos")
-          ]),
-          _vm._v(" "),
-          _c("sc-loading", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isLoading,
-                expression: "isLoading"
-              }
-            ]
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
+  return _c("div", [
+    _c("div", { staticClass: "col s12 m8" }, [
+      _c("div", { staticClass: "card green lighten-5" }, [
+        _c(
+          "div",
+          { staticClass: "card-content" },
+          [
+            _c("span", { staticClass: "card-title black-text" }, [
+              _vm._v("Investimentos")
+            ]),
+            _vm._v(" "),
+            _c("sc-loading", {
               directives: [
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: !_vm.isLoading,
-                  expression: "!isLoading"
+                  value: _vm.isLoading,
+                  expression: "isLoading"
                 }
-              ],
-              attrs: { id: "ultimosCincoInvestimentos" }
-            },
-            [
-              _c("table", [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.investimentos, function(investimento) {
-                    return _c("tr", [
-                      _c("td", [
-                        _vm._v(_vm._s(investimento.tipo_investimento))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(investimento.valor))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(investimento.lucro))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(investimento.data))]),
-                      _vm._v(" "),
-                      _vm._m(1, true)
-                    ])
-                  })
-                )
-              ])
-            ]
-          )
-        ],
-        1
-      )
-    ])
+              ]
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isLoading,
+                    expression: "!isLoading"
+                  }
+                ],
+                attrs: { id: "ultimosCincoInvestimentos" }
+              },
+              [
+                _c("table", [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.investimentos, function(investimento) {
+                      return _c("tr", [
+                        _c("td", [
+                          _vm._v(_vm._s(investimento.tipo_investimento))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(investimento.valor))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(investimento.lucro))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(investimento.data))]),
+                        _vm._v(" "),
+                        _vm._m(1, true)
+                      ])
+                    })
+                  )
+                ])
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col s12 m4" },
+      [
+        _c("novo-investimento", {
+          on: { atualizou: _vm.carregarInvestimentosSemLoading }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [

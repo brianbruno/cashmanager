@@ -80,7 +80,6 @@ class InvestimentosController extends Controller {
         $queryInvestimento = DB::table('investimentos')
             ->select(DB::raw('count(*) as investimentos_count'))
             ->where('investimento_id', 'like', $investimento_prefix.'%')
-            ->where('user_id', $user->user_id)
             ->get();
 
         $investimentosHoje = $queryInvestimento[0]->investimentos_count;

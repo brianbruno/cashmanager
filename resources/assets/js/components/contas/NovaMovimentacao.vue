@@ -1,43 +1,45 @@
 <template>
-    <form action="#" v-on:submit.prevent="createTransacao">
-        <div class="row">
-            <div class="col s12">
-                <div v-show="!isLoading" class="card green lighten-5">
-                    <div class="card-content black-text">
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <select name="tipo" v-model="newTransacao.tipo">
-                                    <option value="E">Entrada</option>
-                                    <option value="S" selected>Saída</option>
-                                </select>
-                                <label>Tipo de transação</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <select name="conta" v-model="newTransacao.conta_id" required>
-                                    <option value="" disabled selected>Escolha a conta</option>
-                                    <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
-                                </select>
-                                <label>Conta</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <input placeholder="0,00" id="valor" type="number" name="valor" v-model="newTransacao.valor" step="0.01" min="0" required>
-                                <label for="valor">Valor</label>
+    <div>
+        <form action="#" v-on:submit.prevent="createTransacao">
+            <div class="row">
+                <div class="col s12">
+                    <div v-show="!isLoading" class="card green lighten-5">
+                        <div class="card-content black-text">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <select name="tipo" v-model="newTransacao.tipo">
+                                        <option value="E">Entrada</option>
+                                        <option value="S" selected>Saída</option>
+                                    </select>
+                                    <label>Tipo de transação</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <select name="conta" v-model="newTransacao.conta_id" required>
+                                        <option value="" disabled selected>Escolha a conta</option>
+                                        <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
+                                    </select>
+                                    <label>Conta</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input placeholder="0,00" id="valor" type="number" name="valor" v-model="newTransacao.valor" step="0.01" min="0" required>
+                                    <label for="valor">Valor</label>
+                                </div>
                             </div>
                         </div>
+                        <div class="card-action">
+                            <button class="btn waves-effect waves-light" name="action">Enviar
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-action">
-                        <button class="btn waves-effect waves-light" name="action">Enviar
-                            <i class="material-icons right">send</i>
-                        </button>
+                    <div class="card-content black-text">
+                        <sc-loading v-show="isLoading"></sc-loading>
                     </div>
-                </div>
-                <div class="card-content black-text">
-                    <sc-loading v-show="isLoading"></sc-loading>
-                </div>
 
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </template>
 
 <script>
