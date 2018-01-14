@@ -47,7 +47,7 @@
 <script>
     export default {
         mounted() {
-            $(document).ready(function() {
+            jQuery(document).ready(function() {
                 jQuery('select').select();
             });
             this.getContas();

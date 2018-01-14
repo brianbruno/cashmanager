@@ -5,11 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
+window.VueCharts = require('vue-chartjs');
 window.jQuery = require('jquery');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -24,7 +24,7 @@ Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
 Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
 Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));
 Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
-
+Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -74,4 +74,32 @@ class HomeController extends Controller {
 
         return $this->resposta($arrayLucro, 'json');
     }
+
+    public function getChartData() {
+        $user = Auth::user();
+
+        $dias = [];
+        $lucros = [];
+
+        array_push($dias, date('Y-m-d', strtotime("-13 day")), date('Y-m-d', strtotime("-12 day")),
+            date('Y-m-d', strtotime("-11 day")), date('Y-m-d', strtotime("-10 day")),
+            date('Y-m-d', strtotime("-9 day")), date('Y-m-d', strtotime('-8day')),
+            date('Y-m-d', strtotime("-7 day")), date('Y-m-d', strtotime("-6 day")),
+            date('Y-m-d', strtotime("-5 day")), date('Y-m-d', strtotime("-4 day")),
+            date('Y-m-d', strtotime("-3 day")), date('Y-m-d', strtotime("-2 day")),
+            date('Y-m-d', strtotime('-1day')), date('Y-m-d'));
+
+        foreach ($dias as $dia) {
+            $lucro = DB::table('investimentos')
+                ->select(DB::raw('COALESCE(SUM(lucro),0) as lucro'))
+                ->where('user_id', $user->user_id)
+                ->whereDate('created_at', $dia)
+                ->get();
+            array_push($lucros, $lucro[0]->lucro);
+        }
+
+        $arrayLucro = array("lucro" => $lucros, "dias" => $dias);
+
+        return $this->resposta($arrayLucro, 'json');
+    }
 }

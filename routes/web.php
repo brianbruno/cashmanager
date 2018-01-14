@@ -96,4 +96,12 @@ Route::get('/investimentos/tabela/{returnType?}', function($returnType = 'view')
         return $investimentosController->index($returnType);
     else
         return $investimentosController->getInvestimentosTabela();
-})->middleware('auth')->name('home');
+})->middleware('auth')->name('home-table');
+
+Route::get('/chart/dashboard/{returnType?}', function($returnType = 'view'){
+    $homeController = app()->make('\App\Http\Controllers\HomeController');
+    if($returnType == 'view')
+        return $homeController->index($returnType);
+    else
+        return $homeController->getChartData();
+})->middleware('auth')->name('chart-dashboard');
