@@ -3,39 +3,39 @@
         <form action="#" v-on:submit.prevent="createTransacao">
             <div class="row">
                 <div class="col s12">
-                    <div v-show="!isLoading" class="card green lighten-5">
-                        <div class="card-content black-text">
-                            <div class="row">
-                                <div class="input-field col s4">
-                                    <select name="tipo" v-model="newTransacao.tipo">
-                                        <option value="E">Entrada</option>
-                                        <option value="S" selected>Saída</option>
-                                    </select>
-                                    <label>Tipo de transação</label>
+                    <div class="card green lighten-5">
+                        <div class="card-content black-text" >
+                            <span class="card-title black-text">Nova transação</span>
+                            <sc-loading v-show="isLoading"></sc-loading>
+                            <div id="cardNovaTransacao" v-show="!isLoading">
+                                <div class="row" >
+                                    <div class="input-field col s4">
+                                        <select name="tipo" v-model="newTransacao.tipo">
+                                            <option value="E">Entrada</option>
+                                            <option value="S" selected>Saída</option>
+                                        </select>
+                                        <label>Tipo de transação</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <select name="conta" v-model="newTransacao.conta_id" required>
+                                            <option value="" disabled selected>Escolha a conta</option>
+                                            <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
+                                        </select>
+                                        <label>Conta</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input placeholder="0,00" id="valor" type="number" name="valor" v-model="newTransacao.valor" step="0.01" min="0" required>
+                                        <label for="valor">Valor</label>
+                                    </div>
                                 </div>
-                                <div class="input-field col s4">
-                                    <select name="conta" v-model="newTransacao.conta_id" required>
-                                        <option value="" disabled selected>Escolha a conta</option>
-                                        <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
-                                    </select>
-                                    <label>Conta</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <input placeholder="0,00" id="valor" type="number" name="valor" v-model="newTransacao.valor" step="0.01" min="0" required>
-                                    <label for="valor">Valor</label>
+                                <div class="card-action">
+                                    <button class="btn waves-effect waves-light green darken-4 right" name="action">Enviar
+                                        <i class="material-icons right">send</i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-action">
-                            <button class="btn waves-effect waves-light" name="action">Enviar
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
                     </div>
-                    <div class="card-content black-text">
-                        <sc-loading v-show="isLoading"></sc-loading>
-                    </div>
-
                 </div>
             </div>
         </form>
@@ -45,7 +45,7 @@
 <script>
     export default {
         mounted() {
-            $(document).ready(function() {
+            jQuery(document).ready(function() {
                 jQuery('select').select();
             });
             this.getContas();
@@ -68,6 +68,7 @@
                 this.showLoading();
                 var input = this.newTransacao;
                 this.$http.post('/contas/transacao/save',input).then((response) => {
+                    bus.$emit('nova-movimentacao', this.newTransacao);
                     this.newTransacao = {'tipo': 'E', 'valor': '', 'conta': ''};
                 }, (response) => {
                     this.formErrors = response.data;

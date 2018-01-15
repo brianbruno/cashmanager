@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <nova-movimentacao></nova-movimentacao>
+    <contas></contas>
 </div>
 
 @endsection

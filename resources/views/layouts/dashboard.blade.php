@@ -21,7 +21,7 @@
     <div id="app">
 
         <ul id="dropdownUser" class="dropdown-content">
-            <li><a href="#!">Minha Conta</a></li>
+            <li><a href="{{ route('minha-conta') }}">Minha Conta</a></li>
             <li>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">

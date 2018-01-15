@@ -25,6 +25,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
+
+Route::get('/minha-conta', function () {
+    $minhaContaController = app()->make('\App\Http\Controllers\Auth\MinhaContaController');
+    return $minhaContaController->index();
+})->name('minha-conta')->middleware('auth');
+
 Route::get('/home/{returnType?}', function($returnType = 'view'){
     $homeController = app()->make('\App\Http\Controllers\HomeController');
     return $homeController->index($returnType);

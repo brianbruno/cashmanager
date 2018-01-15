@@ -1,5 +1,5 @@
 <template>
-    <div class="col s12 m6">
+    <div class="col s12">
         <div class="card green lighten-5">
             <div class="card-content">
                 <span class="card-title black-text">Últimos cinco investimentos registrados</span>

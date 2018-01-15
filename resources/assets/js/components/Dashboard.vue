@@ -2,8 +2,13 @@
 
     <div>
         <div class="row">
-            <saldo-conta></saldo-conta>
-            <investimentos></investimentos>
+            <div class="col s12 m6">
+                <saldo-conta></saldo-conta>
+                <lucro></lucro>
+            </div>
+            <div class="col s12 m6">
+                <investimentos></investimentos>
+            </div>
         </div>
         <div class="row">
             <div class="col s12">

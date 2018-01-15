@@ -10,6 +10,7 @@ window.VueResource = require('vue-resource');
 window.VueCharts = require('vue-chartjs');
 window.jQuery = require('jquery');
 
+window.bus = new Vue();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18,7 +19,7 @@ window.jQuery = require('jquery');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
-Vue.component('saldo-conta', require('./components/SaldoConta.vue'));
+Vue.component('saldo-conta', require('./components/contas/SaldoConta.vue'));
 Vue.component('investimentos', require('./components/Investimentos.vue'));
 Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
 Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
@@ -26,6 +27,9 @@ Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao
 Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
 Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
 Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHora.vue'));
+Vue.component('contas', require('./components/contas/Contas.vue'));
+Vue.component('lucro', require('./components/dashboard/Lucro.vue'));
+Vue.component('tabela-transacoes', require('./components/contas/Transacoes.vue'))
 
 const app = new Vue({
     el: '#app'
