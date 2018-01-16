@@ -119,3 +119,11 @@ Route::get('/chart/dashboard/dia/{returnType?}', function($returnType = 'view'){
     else
         return $homeController->getChartDataHora();
 })->middleware('auth')->name('chart-dashboard-hora');
+
+Route::get('/contas/transacoes/{returnType?}', function($returnType = 'view', Illuminate\Http\Request $request){
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    if($returnType == 'view')
+        return $contasController->index();
+    else
+        return $contasController->getTransacoes($request);
+})->middleware('auth')->name('chart-dashboard-hora');

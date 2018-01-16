@@ -78,4 +78,29 @@ class ContasController extends Controller {
         return $this->resposta($arrayContas, 'json');
     }
 
+    public function getTransacoes (Request $request) {
+        $user = Auth::user();
+        $tipo = $request->input('tipo');
+        $conta = $request->input('conta_id');
+
+        $transacoes = DB::table('transacoes')
+            ->join('contas', 'transacoes.conta_id', '=', 'contas.conta_id')
+            ->select('contas.nome as conta_nome', 'transacoes.tipo as tipo', DB::raw("format(transacoes.valor ,2,'de_DE')as valor"),
+                    DB::raw("date_format(transacoes.created_at,'%d-%m-%Y %H:%i:%s') as data"), 'transacoes.trans_id as trans_id')
+            ->where('transacoes.user_id', $user->user_id)
+            ->when($tipo, function ($query) use ($tipo) {
+                if(isset($tipo) && $tipo != 'T')
+                    return $query->where('transacoes.tipo', $tipo);
+            })
+            ->when($conta, function ($query) use ($conta) {
+                if(isset($conta) && $conta != 'T')
+                    return $query->where('transacoes.conta_id', $conta);
+            })
+            ->get();
+
+        $arrayTransacoes = array("transacoes" => $transacoes);
+
+        return $this->resposta($arrayTransacoes, 'json');
+    }
+
 }
