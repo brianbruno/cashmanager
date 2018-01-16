@@ -8,6 +8,8 @@
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
 window.VueCharts = require('vue-chartjs');
+window.Datepicker  = require('vuejs-datepicker');
+window.Moment = require('moment');
 window.jQuery = require('jquery');
 
 window.bus = new Vue();
@@ -29,7 +31,12 @@ Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
 Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHora.vue'));
 Vue.component('contas', require('./components/contas/Contas.vue'));
 Vue.component('lucro', require('./components/dashboard/Lucro.vue'));
-Vue.component('tabela-transacoes', require('./components/contas/Transacoes.vue'))
+Vue.component('tabela-transacoes', require('./components/contas/Transacoes.vue'));
+
+/**
+ * Componentes externos
+ */
+Vue.component('date-picker', Datepicker);
 
 const app = new Vue({
     el: '#app'

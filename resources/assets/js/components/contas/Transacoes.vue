@@ -2,11 +2,11 @@
     <div>
         <div class="card green lighten-5">
             <div class="card-content black-text" >
-                <span class="card-title black-text">Filtro</span>
+                <span class="card-title black-text">Extrato</span>
                 <sc-loading v-show="isLoadingContas"></sc-loading>
-                <div id="cardFiltroTransacao" v-show="!isLoadingContas">
-                    <div class="row" >
-                        <div class="input-field col s4">
+                <div id="cardFiltroTransacao">
+                    <div class="row" v-show="!isLoadingContas">
+                        <div class="input-field col s3">
                             <select name="tipo" v-model="filtro.tipo">
                                 <option value="T" selected>Todas</option>
                                 <option value="E">Entrada</option>
@@ -14,15 +14,31 @@
                             </select>
                             <label>Tipo de transação</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <select name="conta" v-model="filtro.conta_id" required>
                                 <option value="T" selected>Todas</option>
                                 <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
                             </select>
                             <label>Conta</label>
                         </div>
+                        <div class="input-field col s3">
+                            <div class="col s12">
+                                <date-picker id="date-picker" v-model="filtro.data" language="pt-br"
+                                             :format="customFormatter" :placeholder="'Data'"></date-picker>
+                            </div>
+                        </div>
+                        <div class="input-field col s3">
+                            <select name="conta" v-model="filtro.per_page" required>
+                                <option value="10" selected>10</option>
+                                <option value="20" selected>20</option>
+                                <option value="30" selected>30</option>
+                                <option value="40" selected>40</option>
+                                <option value="50" selected>50</option>
+                            </select>
+                            <label>Itens por página</label>
+                        </div>
                     </div>
-                    <div class="card-action">
+                    <div class="card-action" v-show="!isLoadingContas">
                         <button class="btn waves-effect waves-light indigo darken-4 right"
                                 name="action" v-on:click="carregarTransacoes">Filtrar
                             <i class="material-icons right">send</i>
@@ -52,7 +68,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <ul class="pagination center hide">
+                        <ul v-show="!isLoading" class="pagination center">
                             <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                             <li class="active green lighten-3 black-text"><a href="#!">1</a></li>
                             <li class="waves-effect"><a href="#!">2</a></li>
@@ -74,9 +90,13 @@
 
 <script>
     export default {
+        extends: Datepicker,
         mounted() {
             this.carregarTransacoes();
             this.getContas();
+            jQuery(document).ready(function(){
+                jQuery('select').select();
+            });
             bus.$on('nova-movimentacao', () => {
                 this.getTransacoes();
             });
@@ -85,7 +105,7 @@
             return {
                 transacoes : [],
                 contas: [],
-                filtro: {'tipo': 'T', 'conta': 'T'},
+                filtro: {'tipo': 'T', 'conta': 'T', 'per_page': 10, 'data': new Date()},
                 isLoadingContas: false,
                 isLoading: false
             }
@@ -96,15 +116,18 @@
                 this.getTransacoes();
             },
             getTransacoes () {
+                let data_backup = this.filtro.data;
+                this.filtro.data = Moment(this.filtro.data).format('DD-MM-YY');
                 this.$http.get('/contas/transacoes/json', {params:  this.filtro}).then(
                     response=> {
                         this.transacoes = response.body.transacoes;
                     },
-                    error=>{
-                        console.log(error)
-                    }).finally(function () {
+                error=>{
+                    console.log(error)
+                }).finally(function () {
                     this.hideLoading();
                 });
+                this.filtro.data = data_backup;
             },
             showLoading(){
                 this.isLoading=true;
@@ -122,6 +145,9 @@
                     this.isLoadingContas = false;
                     jQuery('select').select();
                 });
+            },
+            customFormatter(date) {
+                return Moment(date).format('DD/MM/YY');
             },
         },
     }

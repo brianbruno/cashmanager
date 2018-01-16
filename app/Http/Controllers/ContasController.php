@@ -80,8 +80,11 @@ class ContasController extends Controller {
 
     public function getTransacoes (Request $request) {
         $user = Auth::user();
+
         $tipo = $request->input('tipo');
         $conta = $request->input('conta_id');
+        $itens_pagina = $request->input('per_page');
+        $data = $request->input('data');
 
         $transacoes = DB::table('transacoes')
             ->join('contas', 'transacoes.conta_id', '=', 'contas.conta_id')
@@ -96,6 +99,11 @@ class ContasController extends Controller {
                 if(isset($conta) && $conta != 'T')
                     return $query->where('transacoes.conta_id', $conta);
             })
+            ->when($data, function ($query) use ($data) {
+                if(isset($data))
+                    return $query->where(DB::raw("date_format(transacoes.created_at,'%d-%m-%y')"), $data);
+            })
+            ->limit($itens_pagina)
             ->get();
 
         $arrayTransacoes = array("transacoes" => $transacoes);
