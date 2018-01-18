@@ -7,6 +7,7 @@
             </div>
             <div class="col s12 m4">
                 <saldo-conta></saldo-conta>
+                <abrir-conta></abrir-conta>
             </div>
         </div>
         <div class="row">

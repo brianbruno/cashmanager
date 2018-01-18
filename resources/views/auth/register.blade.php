@@ -56,8 +56,8 @@
                         </div>
 
                         <div class="row">
-                            <div class="col offset-s10 s2 ">
-                                <button type="submit" class="waves-effect waves-light btn light-green darken-4">
+                            <div class="col s12">
+                                <button type="submit" class="waves-effect waves-light btn light-green darken-4 right">
                                     Cadastrar
                                 </button>
                             </div>

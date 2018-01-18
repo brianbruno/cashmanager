@@ -17,7 +17,7 @@ Route::get('/', function () {
         return $homeController->index();
         return ;
     }else{
-        return view('welcome');
+        return view('auth.home');
     }
 });
 
@@ -127,3 +127,5 @@ Route::get('/contas/transacoes/{returnType?}', function($returnType = 'view', Il
     else
         return $contasController->getTransacoes($request);
 })->middleware('auth')->name('chart-dashboard-hora');
+
+Route::view('/login/home', 'auth.home');

@@ -25,13 +25,26 @@ Vue.component('saldo-conta', require('./components/contas/SaldoConta.vue'));
 Vue.component('investimentos', require('./components/Investimentos.vue'));
 Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
 Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
-Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));
+
 Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
 Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
 Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHora.vue'));
-Vue.component('contas', require('./components/contas/Contas.vue'));
+
 Vue.component('lucro', require('./components/dashboard/Lucro.vue'));
+
+/**
+ * Componentes Login
+ */
+Vue.component('login', require('./components/auth/Login.vue'));
+
+
+/**
+ * Componentes conta
+ */
+Vue.component('contas', require('./components/contas/Contas.vue'));
+Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));
 Vue.component('tabela-transacoes', require('./components/contas/Transacoes.vue'));
+Vue.component('abrir-conta', require('./components/contas/AbrirConta.vue'));
 
 /**
  * Componentes externos
