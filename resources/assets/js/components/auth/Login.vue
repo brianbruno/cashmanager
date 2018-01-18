@@ -96,7 +96,7 @@
     }
 
     #loginForm {
-        margin-top: 4.125rem;
+        margin-top: 3.125rem;
     }
 
     #btnLoginHome {

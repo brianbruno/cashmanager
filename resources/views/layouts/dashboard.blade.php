@@ -33,14 +33,29 @@
             </li>
         </ul>
 
-
-        <nav class="nav-wrapper teal darken-4">
-            <a class="brand-logo" href="{{ url('/') }}">Cash Manager</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="{{ route('contas') }}">Contas</a></li>
-                <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdownUser">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
+        <nav>
+            <div class="nav-wrapper teal darken-4">
+                <a class="brand-logo" href="{{ url('/') }}">CashManager</a>
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{{ route('contas') }}">Contas</a></li>
+                    <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownUser">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+                <ul class="sidenav" id="mobile-nav">
+                    <li><a href="{{ route('contas') }}">Contas</a></li>
+                    <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
+                    <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
         @yield('content')
@@ -54,6 +69,7 @@
 
         $(document).ready(function() {
             $(".dropdown-trigger").dropdown();
+            $('.sidenav').sidenav();
         });
 
     </script>

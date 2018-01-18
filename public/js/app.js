@@ -73427,7 +73427,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Did
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Raleway:100,600);", ""]);
 
 // module
-exports.push([module.i, "\n#titulo[data-v-5383a42c] {\n    font-family: 'Didact Gothic', sans-serif;\n}\n#loginForm[data-v-5383a42c] {\n    margin-top: 4.125rem;\n}\n#btnLoginHome[data-v-5383a42c] {\n    border-radius: 10px;\n}\n#rightBack[data-v-5383a42c] {\n    font-family : 'Raleway', sans-serif;\n    height      : 100%;\n    width       : 100%;\n    font-weight: 100;\n}\ninput[data-v-5383a42c]:focus {\n    border-bottom: 1px solid #004d40 !important;\n    -webkit-box-shadow: 0 1px 0 0 #004d40 !important;\n    box-shadow: 0 1px 0 0 #004d40 !important;\n}\nlabel[data-v-5383a42c] {\n    color: #004d40 !important;\n}\ninput[data-v-5383a42c] {\n    color: #01579b !important;\n}\nbody[data-v-5383a42c] {\n    background-color: #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "\n#titulo[data-v-5383a42c] {\n    font-family: 'Didact Gothic', sans-serif;\n}\n#loginForm[data-v-5383a42c] {\n    margin-top: 3.125rem;\n}\n#btnLoginHome[data-v-5383a42c] {\n    border-radius: 10px;\n}\n#rightBack[data-v-5383a42c] {\n    font-family : 'Raleway', sans-serif;\n    height      : 100%;\n    width       : 100%;\n    font-weight: 100;\n}\ninput[data-v-5383a42c]:focus {\n    border-bottom: 1px solid #004d40 !important;\n    -webkit-box-shadow: 0 1px 0 0 #004d40 !important;\n    box-shadow: 0 1px 0 0 #004d40 !important;\n}\nlabel[data-v-5383a42c] {\n    color: #004d40 !important;\n}\ninput[data-v-5383a42c] {\n    color: #01579b !important;\n}\nbody[data-v-5383a42c] {\n    background-color: #f5f5f5;\n}\n", ""]);
 
 // exports
 
