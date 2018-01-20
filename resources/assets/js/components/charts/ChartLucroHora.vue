@@ -31,7 +31,7 @@
                     datasets: [
                         {
                             label: 'Lucro',
-                            backgroundColor: '#827717',
+                            backgroundColor: '#37474f',
                             data: this.dados
                         }
                     ]

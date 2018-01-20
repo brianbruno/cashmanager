@@ -11,27 +11,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
-                <div class="card green lighten-5">
+            <div class="col s12 m6">
+                <div class="card green lighten-5 z-depth-2 card-chart">
                     <div class="card-content black-text">
                         <span class="card-title black-text">Lucro por dia</span>
                         <sc-loading v-show="isLoading"></sc-loading>
-                        <line-chart v-on:carregou="hideLoading"></line-chart>
+                        <line-chart v-on:carregou="hideLoading" style="height:30vh;"></line-chart>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <div class="card green lighten-5">
+            <div class="col s12 m6">
+                <div class="card green lighten-5 z-depth-2 card-chart">
                     <div class="card-content black-text">
                         <span class="card-title black-text">Lucro por hora</span>
                         <sc-loading v-show="isLoading"></sc-loading>
-                        <line-chart-lucro-hora v-on:carregou="hideLoadingHora"></line-chart-lucro-hora>
+                        <line-chart-lucro-hora v-on:carregou="hideLoadingHora" style="height:30vh;"></line-chart-lucro-hora>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -64,3 +63,9 @@
         },
     }
 </script>
+
+<style scoped>
+.card-chart {
+    height: 40vh;
+}
+</style>

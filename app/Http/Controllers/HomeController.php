@@ -39,7 +39,7 @@ class HomeController extends Controller {
     public function getCincoUltimosInvestimentos () {
         $user = Auth::user();
         $ultimosCincoInvestimentos = DB::table('investimentos')
-            ->select(DB::raw('(CASE WHEN tipo_investimento = "OPCAO" THEN "OPÇÃO" ELSE "CRIPTOMOEDA" END) AS tipo_investimento'),
+            ->select(DB::raw('(CASE WHEN tipo_investimento = "OPCAO" THEN "Opção" ELSE "Criptomoeda" END) AS tipo_investimento'),
                      DB::raw("format(valor,2,'de_DE') as valor"), DB::raw("format(lucro,2,'de_DE') as lucro"))
             ->where('user_id', $user->user_id)
             ->orderBy('created_at', 'DESC')

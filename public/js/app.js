@@ -34100,6 +34100,7 @@ Vue.component('lucro', __webpack_require__(350));
  * Componentes Login
  */
 Vue.component('login', __webpack_require__(355));
+Vue.component('registro', __webpack_require__(382));
 
 /**
  * Componentes conta
@@ -71448,17 +71449,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(387)
+}
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(328)
 /* template */
-var __vue_template__ = __webpack_require__(330)
+var __vue_template__ = __webpack_require__(389)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-78b73b2d"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -71498,7 +71503,6 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__charts_ChartLucroHora__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__charts_ChartLucroHora___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__charts_ChartLucroHora__);
-//
 //
 //
 //
@@ -71603,7 +71607,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 labels: this.horarios,
                 datasets: [{
                     label: 'Lucro',
-                    backgroundColor: '#827717',
+                    backgroundColor: '#37474f',
                     data: this.dados
                 }]
             }, { responsive: true, maintainAspectRatio: false });
@@ -71612,99 +71616,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 330 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col s12 m6" },
-        [_c("saldo-conta"), _vm._v(" "), _c("lucro")],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col s12 m6" }, [_c("investimentos")], 1)
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12" }, [
-        _c("div", { staticClass: "card green lighten-5" }, [
-          _c(
-            "div",
-            { staticClass: "card-content black-text" },
-            [
-              _c("span", { staticClass: "card-title black-text" }, [
-                _vm._v("Lucro por dia")
-              ]),
-              _vm._v(" "),
-              _c("sc-loading", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.isLoading,
-                    expression: "isLoading"
-                  }
-                ]
-              }),
-              _vm._v(" "),
-              _c("line-chart", { on: { carregou: _vm.hideLoading } })
-            ],
-            1
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12" }, [
-        _c("div", { staticClass: "card green lighten-5" }, [
-          _c(
-            "div",
-            { staticClass: "card-content black-text" },
-            [
-              _c("span", { staticClass: "card-title black-text" }, [
-                _vm._v("Lucro por hora")
-              ]),
-              _vm._v(" "),
-              _c("sc-loading", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.isLoading,
-                    expression: "isLoading"
-                  }
-                ]
-              }),
-              _vm._v(" "),
-              _c("line-chart-lucro-hora", {
-                on: { carregou: _vm.hideLoadingHora }
-              })
-            ],
-            1
-          )
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-78b73b2d", module.exports)
-  }
-}
-
-/***/ }),
+/* 330 */,
 /* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -71911,9 +71823,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col s12" }, [
-    _c("div", { staticClass: "card green lighten-5" }, [
+    _c("div", { staticClass: "card green lighten-5 z-depth-2" }, [
       _c("div", { staticClass: "card-content", attrs: { id: "divSaldo" } }, [
-        _c("span", { staticClass: "card-title black-text" }, [_vm._v("Saldo")]),
+        _c("span", { staticClass: "card-title black-text titulo-cartao" }, [
+          _vm._v("Saldo")
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "center-align" }, [
           _c(
@@ -71927,7 +71841,8 @@ var render = function() {
                   expression: "!exibirSaldo"
                 }
               ],
-              staticClass: "waves-effect waves-light btn-large orange accent-4",
+              staticClass:
+                "waves-effect waves-light waves-blue-grey btn-large blue-grey darken-4",
               attrs: { id: "btnExibirSaldo" },
               on: { click: _vm.clickExibirSaldo }
             },
@@ -71998,17 +71913,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(392)
+}
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(338)
 /* template */
-var __vue_template__ = __webpack_require__(339)
+var __vue_template__ = __webpack_require__(394)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-21db0a22"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -72113,100 +72032,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 339 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col s12" }, [
-    _c("div", { staticClass: "card green lighten-5" }, [
-      _c(
-        "div",
-        { staticClass: "card-content" },
-        [
-          _c("span", { staticClass: "card-title black-text" }, [
-            _vm._v("Últimos cinco investimentos registrados")
-          ]),
-          _vm._v(" "),
-          _c("sc-loading", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isLoading,
-                expression: "isLoading"
-              }
-            ]
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.isLoading,
-                  expression: "!isLoading"
-                }
-              ],
-              attrs: { id: "ultimosCincoInvestimentos" }
-            },
-            [
-              _c("table", [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.investimentos, function(investimento) {
-                    return _c("tr", [
-                      _c("td", [
-                        _vm._v(_vm._s(investimento.tipo_investimento))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(investimento.valor))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(investimento.lucro))])
-                    ])
-                  })
-                )
-              ])
-            ]
-          )
-        ],
-        1
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Investimento")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Valor")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Lucro")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-21db0a22", module.exports)
-  }
-}
-
-/***/ }),
+/* 339 */,
 /* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -72270,7 +72096,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "center-align" }, [
       _c("div", { staticClass: "preloader-wrapper big active" }, [
-        _c("div", { staticClass: "spinner-layer spinner-blue-only" }, [
+        _c("div", { staticClass: "spinner-layer spinner-grey-only" }, [
           _c("div", { staticClass: "circle-clipper left" }, [
             _c("div", { staticClass: "circle" })
           ]),
@@ -73082,7 +72908,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 labels: this.dias,
                 datasets: [{
                     label: 'Lucro por dia',
-                    backgroundColor: '#a5d6a7',
+                    backgroundColor: '#263238',
                     data: this.dados
                 }]
             }, { responsive: true, maintainAspectRatio: false });
@@ -73256,7 +73082,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col s12" }, [
-    _c("div", { staticClass: "card green lighten-5" }, [
+    _c("div", { staticClass: "card green lighten-5 z-depth-2" }, [
       _c("div", { staticClass: "card-content", attrs: { id: "divLucro" } }, [
         _c("span", { staticClass: "card-title black-text" }, [
           _vm._v("Lucro últimos sete dias")
@@ -73274,7 +73100,8 @@ var render = function() {
                   expression: "!exibirLucro"
                 }
               ],
-              staticClass: "waves-effect waves-light btn-large orange accent-4",
+              staticClass:
+                "waves-effect waves-light btn-large blue-grey darken-4",
               attrs: { id: "btnExibirLucro" },
               on: { click: _vm.clickExibirLucro }
             },
@@ -73427,7 +73254,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Did
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Raleway:100,600);", ""]);
 
 // module
-exports.push([module.i, "\n#titulo[data-v-5383a42c] {\n    font-family: 'Didact Gothic', sans-serif;\n}\n#loginForm[data-v-5383a42c] {\n    margin-top: 3.125rem;\n}\n#btnLoginHome[data-v-5383a42c] {\n    border-radius: 10px;\n}\n#rightBack[data-v-5383a42c] {\n    font-family : 'Raleway', sans-serif;\n    height      : 100%;\n    width       : 100%;\n    font-weight: 100;\n}\ninput[data-v-5383a42c]:focus {\n    border-bottom: 1px solid #004d40 !important;\n    -webkit-box-shadow: 0 1px 0 0 #004d40 !important;\n    box-shadow: 0 1px 0 0 #004d40 !important;\n}\nlabel[data-v-5383a42c] {\n    color: #004d40 !important;\n}\ninput[data-v-5383a42c] {\n    color: #01579b !important;\n}\nbody[data-v-5383a42c] {\n    background-color: #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "\n#titulo[data-v-5383a42c] {\n    font-family: 'Didact Gothic', sans-serif;\n}\n#loginForm[data-v-5383a42c] {\n    margin-top: 2.525rem;\n}\n#btnLoginHome[data-v-5383a42c] {\n    border-radius: 10px;\n}\n#rightBack[data-v-5383a42c] {\n    font-family : 'Raleway', sans-serif;\n    height      : 100%;\n    width       : 100%;\n    font-weight: 100;\n}\ninput[data-v-5383a42c]:focus {\n    border-bottom: 1px solid #004d40 !important;\n    -webkit-box-shadow: 0 1px 0 0 #004d40 !important;\n    box-shadow: 0 1px 0 0 #004d40 !important;\n}\nlabel[data-v-5383a42c] {\n    color: #004d40 !important;\n}\ninput[data-v-5383a42c] {\n    color: #01579b !important;\n}\nbody[data-v-5383a42c] {\n    background-color: #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -73500,21 +73327,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     self.typeWriter(text, n);
                 }, 100);
             }
-        },
-
-        createTransacao: function createTransacao() {
-            var _this = this;
-
-            this.showLoading();
-            var input = this.newTransacao;
-            this.$http.post('/contas/transacao/save', input).then(function (response) {
-                bus.$emit('nova-movimentacao', _this.newTransacao);
-                _this.newTransacao = { 'tipo': 'E', 'valor': '', 'conta': '' };
-            }, function (response) {
-                _this.formErrors = response.data;
-            }).finally(function () {
-                this.hideLoading();
-            });
         }
     }
 });
@@ -73563,7 +73375,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "col s12 center" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col s12", attrs: { id: "titulo" } }, [
-            _c("h1", [_vm._v("Cash Manager")]),
+            _c("a", { attrs: { href: "/" } }, [
+              _c("h1", { staticClass: "black-text" }, [_vm._v("CashManager")])
+            ]),
             _vm._v(" "),
             _c("h5", { staticClass: "textoWriter" })
           ])
@@ -73572,7 +73386,6 @@ var staticRenderFns = [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "input-field col s12 m8 offset-m2" }, [
             _c("input", {
-              staticClass: "validate",
               attrs: { id: "email", type: "email", name: "email", required: "" }
             }),
             _vm._v(" "),
@@ -73583,7 +73396,6 @@ var staticRenderFns = [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "input-field col s12 m8 offset-m2" }, [
             _c("input", {
-              staticClass: "validate",
               attrs: {
                 id: "senha",
                 type: "password",
@@ -73601,7 +73413,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "btn-flat waves-effect waves-light",
-              attrs: { href: "/register" }
+              attrs: { href: "/registro" }
             },
             [_vm._v("Cadastrar")]
           ),
@@ -75225,6 +75037,578 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(383)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(385)
+/* template */
+var __vue_template__ = __webpack_require__(386)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-628ef530"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\auth\\Register.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-628ef530", Component.options)
+  } else {
+    hotAPI.reload("data-v-628ef530", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(384);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(11)("7559cece", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-628ef530\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Register.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-628ef530\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Register.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(10)(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Didact+Gothic);", ""]);
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Raleway:100,600);", ""]);
+
+// module
+exports.push([module.i, "\n#titulo[data-v-628ef530] {\n    font-family: 'Didact Gothic', sans-serif;\n}\n#loginForm[data-v-628ef530] {\n    margin-top: 2.525rem;\n}\n#btnLoginHome[data-v-628ef530] {\n    border-radius: 10px;\n}\n#rightBack[data-v-628ef530] {\n    font-family : 'Raleway', sans-serif;\n    height      : 100%;\n    width       : 100%;\n    font-weight: 100;\n}\ninput[data-v-628ef530]:focus {\n    border-bottom: 1px solid #004d40 !important;\n    -webkit-box-shadow: 0 1px 0 0 #004d40 !important;\n    box-shadow: 0 1px 0 0 #004d40 !important;\n}\nlabel[data-v-628ef530] {\n    color: #004d40 !important;\n}\ninput[data-v-628ef530] {\n    color: #01579b !important;\n}\nbody[data-v-628ef530] {\n    background-color: #f5f5f5;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 385 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {},
+    data: function data() {
+        return {
+            csrf_token: jQuery('meta[name="csrf-token"]').attr('content')
+        };
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "container" } }, [
+    _c("form", { attrs: { method: "POST", action: "/register" } }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.csrf_token,
+            expression: "csrf_token"
+          }
+        ],
+        attrs: { type: "hidden", name: "_token" },
+        domProps: { value: _vm.csrf_token },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.csrf_token = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "loginForm" } }, [
+      _c("div", { staticClass: "col s12 center" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col s12", attrs: { id: "titulo" } }, [
+            _c("a", { attrs: { href: "/" } }, [
+              _c("h1", { staticClass: "black-text" }, [_vm._v("CashManager")])
+            ]),
+            _vm._v(" "),
+            _c("h5", { staticClass: "textoWriter" }, [_vm._v("Cadastro")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12 m8 offset-m2" }, [
+            _c("input", {
+              attrs: { id: "nome", type: "text", name: "name", required: "" }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "nome" } }, [_vm._v("Nome")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12 m8 offset-m2" }, [
+            _c("input", {
+              attrs: { id: "email", type: "email", name: "email", required: "" }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12 m8 offset-m2" }, [
+            _c("input", {
+              attrs: {
+                id: "senha",
+                type: "password",
+                name: "password",
+                required: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "senha" } }, [_vm._v("Senha")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "input-field col s12 m8 offset-m2" }, [
+            _c("input", {
+              attrs: {
+                id: "senha-confirm",
+                type: "password",
+                name: "password_confirmation",
+                required: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "senha-confirm" } }, [
+              _vm._v("Confirme sua senha")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "btn waves-effect teal darken-4 waves-light z-depth-3",
+              attrs: { id: "btnLoginHome", type: "submit" }
+            },
+            [
+              _vm._v("\n                        Cadastrar "),
+              _c("i", { staticClass: "material-icons right" }, [_vm._v("send")])
+            ]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-628ef530", module.exports)
+  }
+}
+
+/***/ }),
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(388);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(11)("2bac5668", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78b73b2d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Dashboard.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78b73b2d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Dashboard.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(10)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card-chart[data-v-78b73b2d] {\r\n    height: 40vh;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col s12 m6" },
+        [_c("saldo-conta"), _vm._v(" "), _c("lucro")],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col s12 m6" }, [_c("investimentos")], 1)
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col s12 m6" }, [
+        _c(
+          "div",
+          { staticClass: "card green lighten-5 z-depth-2 card-chart" },
+          [
+            _c(
+              "div",
+              { staticClass: "card-content black-text" },
+              [
+                _c("span", { staticClass: "card-title black-text" }, [
+                  _vm._v("Lucro por dia")
+                ]),
+                _vm._v(" "),
+                _c("sc-loading", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLoading,
+                      expression: "isLoading"
+                    }
+                  ]
+                }),
+                _vm._v(" "),
+                _c("line-chart", {
+                  staticStyle: { height: "30vh" },
+                  on: { carregou: _vm.hideLoading }
+                })
+              ],
+              1
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col s12 m6" }, [
+        _c(
+          "div",
+          { staticClass: "card green lighten-5 z-depth-2 card-chart" },
+          [
+            _c(
+              "div",
+              { staticClass: "card-content black-text" },
+              [
+                _c("span", { staticClass: "card-title black-text" }, [
+                  _vm._v("Lucro por hora")
+                ]),
+                _vm._v(" "),
+                _c("sc-loading", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLoading,
+                      expression: "isLoading"
+                    }
+                  ]
+                }),
+                _vm._v(" "),
+                _c("line-chart-lucro-hora", {
+                  staticStyle: { height: "30vh" },
+                  on: { carregou: _vm.hideLoadingHora }
+                })
+              ],
+              1
+            )
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-78b73b2d", module.exports)
+  }
+}
+
+/***/ }),
+/* 390 */,
+/* 391 */,
+/* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(393);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(11)("4053d78f", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-21db0a22\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Investimentos.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-21db0a22\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Investimentos.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 393 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(10)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.linhaTabela[data-v-21db0a22] :hover {\n    background-color: #e0e0e0;\n}\nth[data-v-21db0a22] {\n    font-family: 'Quicksand', sans-serif;\n    font-size: 15px;\n    text-transform: uppercase;\n}\ntd[data-v-21db0a22] {\n    font-size: 14px;\n    text-transform: capitalize;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 394 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col s12" }, [
+    _c("div", { staticClass: "card green lighten-5 z-depth-2" }, [
+      _c(
+        "div",
+        { staticClass: "card-content" },
+        [
+          _c("span", { staticClass: "card-title black-text" }, [
+            _vm._v("Últimos cinco investimentos registrados")
+          ]),
+          _vm._v(" "),
+          _c("sc-loading", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.isLoading,
+                expression: "isLoading"
+              }
+            ]
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLoading,
+                  expression: "!isLoading"
+                }
+              ],
+              attrs: { id: "ultimosCincoInvestimentos" }
+            },
+            [
+              _c("table", { staticClass: "striped" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.investimentos, function(investimento) {
+                    return _c("tr", { staticClass: "linhaTable" }, [
+                      _c("td", [
+                        _vm._v(_vm._s(investimento.tipo_investimento))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(investimento.valor))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(investimento.lucro))])
+                    ])
+                  })
+                )
+              ])
+            ]
+          )
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Investimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Lucro")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-21db0a22", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

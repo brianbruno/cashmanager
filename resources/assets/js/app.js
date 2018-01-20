@@ -36,6 +36,7 @@ Vue.component('lucro', require('./components/dashboard/Lucro.vue'));
  * Componentes Login
  */
 Vue.component('login', require('./components/auth/Login.vue'));
+Vue.component('registro', require('./components/auth/Register.vue'));
 
 
 /**

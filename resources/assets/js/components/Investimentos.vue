@@ -1,11 +1,11 @@
 <template>
     <div class="col s12">
-        <div class="card green lighten-5">
+        <div class="card green lighten-5 z-depth-2">
             <div class="card-content">
                 <span class="card-title black-text">Últimos cinco investimentos registrados</span>
                 <sc-loading v-show="isLoading"></sc-loading>
                 <div id="ultimosCincoInvestimentos" v-show="!isLoading">
-                    <table>
+                    <table class="striped">
                         <thead>
                         <tr>
                             <th>Investimento</th>
@@ -15,7 +15,7 @@
                         </thead>
 
                         <tbody>
-                        <tr v-for="investimento in investimentos">
+                        <tr class="linhaTable" v-for="investimento in investimentos">
                             <td>{{ investimento.tipo_investimento }}</td>
                             <td>{{ investimento.valor }}</td>
                             <td>{{ investimento.lucro }}</td>
@@ -66,3 +66,19 @@
         },
     }
 </script>
+
+<style scoped>
+    .linhaTabela :hover {
+        background-color: #e0e0e0;
+    }
+    th {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 15px;
+        text-transform: uppercase;
+    }
+
+    td {
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+</style>

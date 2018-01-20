@@ -2,6 +2,25 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
 // Variables
 @import "variables";
+
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+.tituloNavBar {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.itemNavBar {
+  font-family: 'Quicksand', sans-serif;
+}

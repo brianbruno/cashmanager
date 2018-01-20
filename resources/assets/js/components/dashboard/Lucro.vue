@@ -1,10 +1,10 @@
 <template>
     <div class="col s12">
-        <div class="card green lighten-5">
+        <div class="card green lighten-5 z-depth-2">
             <div class="card-content" id="divLucro">
                 <span class="card-title black-text">Lucro últimos sete dias</span>
                 <div class="center-align">
-                    <a class="waves-effect waves-light btn-large orange accent-4"
+                    <a class="waves-effect waves-light btn-large blue-grey darken-4"
                        v-on:click="clickExibirLucro" v-show="!exibirLucro" id="btnExibirLucro">
                         Exibir lucro
                     </a>

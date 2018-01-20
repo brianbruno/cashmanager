@@ -14,51 +14,59 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/materialize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
-  
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body class="blue-grey lighten-5">
     <div id="app">
+        <header>
+            <div class="container"><a href="#" data-target="slide-out" class="top-nav sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a></div>
+            <ul id="slide-out" class="sidenav sidenav-fixed blue-grey darken-3">
+                <li class="logo center">
+                    <a id="logo-container" href="/" class="brand-logo white-text"><h4 class="tituloNavBar">CashManager</h4></a>
+                </li>
 
-        <ul id="dropdownUser" class="dropdown-content">
-            <li><a href="{{ route('minha-conta') }}">Minha Conta</a></li>
-            <li>
-                <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                    Logout
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </li>
-        </ul>
+                <div class="card blue-grey darken-4 hoverable">
+                    <div class="card-content">
+                        <div class="col s12">
+                            <i class="material-icons medium left white-text">account_box</i>
+                            <a href="{{ route('logout') }}" class="btn-flat waves-effect waves-red right red-text bold" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();"><i class="material-icons">exit_to_app</i>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+                        <div class="col s12">
+                            <span class="title"><a class="white-text" href="{{ route('minha-conta') }}">{{ Auth::user()->name }}</a></span>
 
-        <nav>
-            <div class="nav-wrapper teal darken-4">
-                <a class="brand-logo" href="{{ url('/') }}">CashManager</a>
-                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ route('contas') }}">Contas</a></li>
-                    <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownUser">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>
-                <ul class="sidenav" id="mobile-nav">
-                    <li><a href="{{ route('contas') }}">Contas</a></li>
-                    <li><a href="{{ route('investimentos') }}">Investimentos</a></li>
-                    <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        @yield('content')
+                            <p class="white-text">{{ Auth::user()->email }}</p>
+                        </div>
+                    </div>
+                </div>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Contas</h5></a>
+                            <div class="collapsible-body blue-grey darken-3">
+                                <ul>
+                                    <li><a class="white-text" href="{{ route('contas') }}">Contas</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="bold"><a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Investimentos</h5></a>
+                            <div class="collapsible-body blue-grey darken-3">
+                                <ul>
+                                    <li><a class="white-text" href="{{ route('investimentos') }}">Investimentos</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+        <main>
+            @yield('content')
+        </main>
     </div>
 
     <!-- Scripts -->
@@ -66,10 +74,10 @@
     <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
     <script>
-
         $(document).ready(function() {
             $(".dropdown-trigger").dropdown();
             $('.sidenav').sidenav();
+            $('.collapsible').collapsible();
         });
 
     </script>

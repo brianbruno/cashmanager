@@ -31,7 +31,7 @@
                     datasets: [
                         {
                             label: 'Lucro por dia',
-                            backgroundColor: '#a5d6a7',
+                            backgroundColor: '#263238',
                             data: this.dados
                         }
                     ]

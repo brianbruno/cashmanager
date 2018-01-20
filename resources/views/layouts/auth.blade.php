@@ -11,25 +11,15 @@
     <title>{{ config('app.name', 'Cash Manager') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/css/materialize.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/css/hover.css') }}" rel="stylesheet">
-  
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/materialize.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
 <div id="app">
-
-    <nav>
-        <div class="nav-wrapper teal darken-4">
-            <a href="#!" class="brand-logo">Cash Manager</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="{{ route('login') }}">Login</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
-            </ul>
-        </div>
-    </nav>
-
     @yield('content')
 </div>
 
@@ -40,3 +30,4 @@
 
 </body>
 </html>
+
