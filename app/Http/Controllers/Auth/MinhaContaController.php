@@ -40,14 +40,22 @@ class MinhaContaController extends Controller {
 
         $contas = $this->contasController->getContas(false);
 
-        $conta_principal = DB::table('users_preferences')
-            ->select('conta_principal')
-            ->where('user_id', $user->user_id)
-            ->get();
+        $conta_principal = $this->getContaPrincipal();
 
         $array = array("contas" => $contas, "preferencias" => $conta_principal);
 
         return $this->resposta($array, 'json');
+    }
+
+    public function getContaPrincipal () {
+        $user = Auth::user();
+
+        $query = DB::table('users_preferences')
+            ->select('conta_principal')
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        return $query;
     }
 
     public function store(Request $request) {

@@ -7,7 +7,7 @@
                         <div class="col s12">
                             <sc-loading v-show="isLoading"></sc-loading>
                             <div v-show="!isLoading" class="center">
-                                <h4>2</h4><p class="card-box">Contas</p>
+                                <h4>{{ contas }}</h4><p class="card-box">Contas</p>
                             </div>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                         <div class="col s12">
                             <sc-loading v-show="isLoading"></sc-loading>
                             <div v-show="!isLoading" class="center">
-                                <h4>125</h4><p class="card-box">Transações (mês)</p>
+                                <h4>{{ transacoes }}</h4><p class="card-box">Transações (mês)</p>
                             </div>
                         </div>
                     </div>
@@ -34,13 +34,17 @@
 <script>
     export default {
         mounted() {
-            this.getContas();
+            this.getDados();
+            bus.$on('nova-conta', () => {
+                this.getDados();
+            });
         },
         data () {
             return {
                 novaConta: { 'nome': '' },
                 criandoConta: true,
-                dados: [],
+                transacoes: '0',
+                contas: '0',
                 isLoading: true,
             }
         },
@@ -51,11 +55,12 @@
             hideLoading(){
                 this.isLoading = false;
             },
-            getContas: function () {
+            getDados: function () {
                 this.showLoading();
                 this.$http.get('/contas/getDadosContas/json').then((response) => {
                     this.hideLoading();
-                    this.contas = response.body.dados;
+                    this.contas = response.body.contas[0].contas;
+                    this.transacoes = response.body.transacoes[0].transacoes;
                 }, (response) => {
                     let formErrors = response.body;
                     M.toast({html: "Erro: " + formErrors.message, classes: 'rounded'});

@@ -15,7 +15,10 @@ class Controller extends BaseController {
         "AtualizacaoSucesso" => 'Preferências atualizadas com sucesso.',
         "AtualizacaoErro"    => 'Erro ao atualizar registro.',
         "CriadoSucesso"      => 'Criado com sucesso.',
-        "CriadoErro"         => 'Erro ao criar registro.'
+        "CriadoErro"         => 'Erro ao criar registro.',
+        "LimiteMaximo"       => 'Limite máximo atingido',
+        "NaoExcluirPrincipal"=> 'Não é possível fechar a conta principal. Vá em configurações e altere.',
+        "NaoExcluirPadrao"   => 'Não é possível fechar a Conta Padrão.'
     );
 
     /**

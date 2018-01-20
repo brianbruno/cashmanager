@@ -59,6 +59,7 @@
 
                 this.$http.post('/contas/criar',input).then((response) => {
                     M.toast({html: response.body.message, classes: 'rounded'});
+                    bus.$emit('nova-conta');
                 }, (response) => {
                     M.toast({html: response.body.message, classes: 'rounded'});
                     this.formErrors = response.data;

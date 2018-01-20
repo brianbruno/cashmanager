@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Transacao;
 use App\Conta;
+use App\Http\Controllers\Auth\MinhaContaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,8 +70,26 @@ class ContasController extends Controller {
 
     public function getContas($json = true) {
         $user = Auth::user();
+
         $contas = DB::table('contas')
-            ->select('conta_id', 'nome')
+            ->select('conta_id', 'nome', 'status')
+            ->where('user_id', $user->user_id)
+            ->where('status', 'A')
+            ->get();
+
+        if($json) {
+            $arrayContas = array("contas" => $contas);
+            return $this->resposta($arrayContas, 'json');
+        }
+        else
+            return $contas;
+    }
+
+    public function getAllContas($json = true) {
+        $user = Auth::user();
+
+        $contas = DB::table('contas')
+            ->select('conta_id', 'nome', 'status')
             ->where('user_id', $user->user_id)
             ->get();
 
@@ -84,14 +103,21 @@ class ContasController extends Controller {
 
     public function getDadosContas() {
         $user = Auth::user();
+
         $contas = DB::table('contas')
-            ->select('conta_id', 'nome')
+            ->select(DB::raw('count(conta_id) as contas'))
             ->where('user_id', $user->user_id)
+            ->where('status', 'A')
             ->get();
 
-        $arrayContas = array("contas" => $contas);
+        $transacoes = DB::table('transacoes')
+            ->select(DB::raw('count(trans_id) as transacoes'))
+            ->where('user_id', $user->user_id, DB::raw('DATE(created_at) > (NOW() - INTERVAL 30 DAY)'))
+            ->get();
 
-        return $this->resposta($arrayContas, 'json');
+        $array = array("contas" => $contas, "transacoes" => $transacoes);
+
+        return $this->resposta($array, 'json');
     }
 
     public function getTransacoes (Request $request) {
@@ -107,6 +133,7 @@ class ContasController extends Controller {
             ->select('contas.nome as conta_nome', 'transacoes.tipo as tipo', DB::raw("format(transacoes.valor ,2,'de_DE')as valor"),
                     DB::raw("date_format(transacoes.created_at,'%d-%m-%Y %H:%i:%s') as data"), 'transacoes.trans_id as trans_id')
             ->where('transacoes.user_id', $user->user_id)
+            ->where('contas.status', 'A')
             ->when($tipo, function ($query) use ($tipo) {
                 if(isset($tipo) && $tipo != 'T')
                     return $query->where('transacoes.tipo', $tipo);
@@ -130,24 +157,56 @@ class ContasController extends Controller {
     public function storeConta (Request $request) {
 
         $user = Auth::user();
-        $contas = $this->getContas(false);
-        $totalContas = count($contas) + 1;
+        $contas = $this->getAllContas(false);
 
+        if(count($contas) < 10) {
+            $proximaConta = count($contas) + 1;
 
-        $conta_prefix = str_pad($totalContas, 4, "0", STR_PAD_LEFT);
+            $conta_prefix = str_pad($proximaConta, 4, "0", STR_PAD_LEFT);
 
-        $conta_id = $conta_prefix.substr($user->user_id, 0, -4);
+            $conta_id = $conta_prefix . substr($user->user_id, 0, -4);
 
-        $conta = new Conta;
+            $conta = new Conta;
 
-        $conta->user_id = $user->user_id;
-        $conta->conta_id = $conta_id;
-        $conta->nome = $request->input('nome');
+            $conta->user_id = $user->user_id;
+            $conta->conta_id = $conta_id;
+            $conta->nome = $request->input('nome');
+            $conta->status = 'A';
 
-        if($conta->save())
-            return $this->resposta(array("message" => $this->mensagens['CriadoSucesso']), 'json');
-        else
-            return $this->resposta(array("message" => $this->mensagens['CriadoErro']), 'json');
+            if ($conta->save())
+                return $this->resposta(array("message" => $this->mensagens['CriadoSucesso']), 'json');
+            else
+                return $this->resposta(array("message" => $this->mensagens['CriadoErro']), 'json');
+        } else {
+            return $this->resposta(array("message" => $this->mensagens['LimiteMaximo']), 'json');
+        }
+    }
+
+    public function deletarConta (Request $request) {
+
+        $conta_id = $request->input('conta_id');
+        $user = Auth::user();
+
+        $minhaContaController = new MinhaContaController();
+        $contaPrincipal = $minhaContaController->getContaPrincipal();
+
+        $idContaPadrao = '0001' . substr($user->user_id, 0, -4);
+
+        if($contaPrincipal == $conta_id) {
+            $returnMessage = $this->mensagens['NaoExcluirPrincipal'];
+        } else if($conta_id == $idContaPadrao) {
+            $returnMessage = $this->mensagens['NaoExcluirPadrao'];
+        } else {
+            $conta = Conta::where('conta_id', '=' ,$conta_id)->firstOrFail();
+            $conta->status = 'F';
+
+            if($conta->save())
+                $returnMessage = $this->mensagens['AtualizacaoSucesso'];
+            else
+                $returnMessage = $this->mensagens['AtualizacaoErro'];
+        }
+
+        return $this->resposta(array("message" => $returnMessage), 'json');
     }
 
 }

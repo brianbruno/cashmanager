@@ -9,11 +9,6 @@
                 <saldo-conta></saldo-conta>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12">
-                <tabela-transacoes></tabela-transacoes>
-            </div>
-        </div>
     </div>
 </template>
 

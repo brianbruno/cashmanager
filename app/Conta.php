@@ -18,7 +18,7 @@ class Conta extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id', 'conta_id', 'nome',
+        'user_id', 'conta_id', 'nome', 'status'
     ];
 
     /**

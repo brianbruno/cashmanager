@@ -76,6 +76,9 @@ Route::get('/contas', function(){
 
 })->middleware('auth')->name('contas');
 
+
+Route::view('/contas/extrato', 'contas.extrato')->middleware('auth')->name('extrato-contas');
+
 Route::post('/contas/transacao/save', function(Illuminate\Http\Request $request){
     $contasController = app()->make('\App\Http\Controllers\ContasController');
     return $contasController->storeTransacao($request);
@@ -158,4 +161,10 @@ Route::post('/contas/criar', function(Illuminate\Http\Request $request){
     $contasController = app()->make('\App\Http\Controllers\ContasController');
     return $contasController->storeConta($request);
 
-})->middleware('auth')->name('save-preferencias');
+})->middleware('auth')->name('criar-conta');
+
+Route::post('/contas/apagar', function(Illuminate\Http\Request $request){
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    return $contasController->deletarConta($request);
+
+})->middleware('auth')->name('deletar-conta');
