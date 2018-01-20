@@ -39,7 +39,6 @@
         mounted() {
             let index = Math.floor((Math.random() * 9));
             setTimeout(this.typeWriter(this.frases[index], 0), 1000);
-            console.log(this.csrf_token);
         },
         data () {
             return {

@@ -25,12 +25,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-
-Route::get('/minha-conta', function () {
-    $minhaContaController = app()->make('\App\Http\Controllers\Auth\MinhaContaController');
-    return $minhaContaController->index();
-})->name('minha-conta')->middleware('auth');
-
 Route::get('/home/{returnType?}', function($returnType = 'view'){
     $homeController = app()->make('\App\Http\Controllers\HomeController');
     return $homeController->index($returnType);
@@ -96,6 +90,15 @@ Route::get('/contas/getContas/{returnType?}', function($returnType = 'view'){
 
 })->middleware('auth')->name('home');
 
+Route::get('/contas/getDadosContas/{returnType?}', function($returnType = 'view'){
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    if ($returnType == 'view')
+        return $contasController->index($returnType);
+    else
+        return $contasController->getDadosContas();
+
+})->middleware('auth')->name('home');
+
 Route::get('/investimentos/tabela/{returnType?}', function($returnType = 'view'){
     $investimentosController = app()->make('\App\Http\Controllers\InvestimentosController');
     if($returnType == 'view')
@@ -129,3 +132,30 @@ Route::get('/contas/transacoes/{returnType?}', function($returnType = 'view', Il
 })->middleware('auth')->name('chart-dashboard-hora');
 
 Route::view('/registro', 'auth.registro');
+
+Route::view('/contas/abrirconta', 'contas.abrir')->name('abrir-conta');
+
+Route::get('/minha-conta', function () {
+    $minhaContaController = app()->make('\App\Http\Controllers\Auth\MinhaContaController');
+    return $minhaContaController->index();
+})->name('minha-conta')->middleware('auth');
+
+Route::get('/auth/getPreferences/{returnType?}', function($returnType = 'view'){
+    $minhaContaController = app()->make('\App\Http\Controllers\Auth\MinhaContaController');
+    if($returnType == 'view')
+        return $minhaContaController ->index();
+    else
+        return $minhaContaController ->getUserPreferences();
+})->middleware('auth')->name('chart-dashboard-hora');
+
+Route::post('/auth/preferencias', function(Illuminate\Http\Request $request){
+    $minhaContaController = app()->make('\App\Http\Controllers\Auth\MinhaContaController');
+    return $minhaContaController->store($request);
+
+})->middleware('auth')->name('save-preferencias');
+
+Route::post('/contas/criar', function(Illuminate\Http\Request $request){
+    $contasController = app()->make('\App\Http\Controllers\ContasController');
+    return $contasController->storeConta($request);
+
+})->middleware('auth')->name('save-preferencias');

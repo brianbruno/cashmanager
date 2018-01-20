@@ -11,6 +11,13 @@ class Controller extends BaseController {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public $mensagens = array(
+        "AtualizacaoSucesso" => 'Preferências atualizadas com sucesso.',
+        "AtualizacaoErro"    => 'Erro ao atualizar registro.',
+        "CriadoSucesso"      => 'Criado com sucesso.',
+        "CriadoErro"         => 'Erro ao criar registro.'
+    );
+
     /**
      * Display the specified resource.
      *

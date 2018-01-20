@@ -49,14 +49,17 @@
                         <li class="bold"><a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Contas</h5></a>
                             <div class="collapsible-body blue-grey darken-3">
                                 <ul>
-                                    <li><a class="white-text" href="{{ route('contas') }}">Contas</a></li>
+                                    <li><a class="white-text" href="{{ route('abrir-conta') }}">Abrir conta</a></li>
+                                    <li><a class="white-text" href="{{ route('contas') }}">Extrato</a></li>
+                                    <li><a class="white-text" href="{{ route('contas') }}">Registrar movimentação</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="bold"><a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Investimentos</h5></a>
                             <div class="collapsible-body blue-grey darken-3">
                                 <ul>
-                                    <li><a class="white-text" href="{{ route('investimentos') }}">Investimentos</a></li>
+                                    <li><a class="white-text" href="{{ route('investimentos') }}">Investir</a></li>
+                                    <li><a class="white-text" href="{{ route('investimentos') }}">Investimentos Ativos</a></li>
                                 </ul>
                             </div>
                         </li>

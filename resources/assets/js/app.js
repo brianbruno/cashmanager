@@ -11,6 +11,7 @@ window.VueCharts = require('vue-chartjs');
 window.Datepicker  = require('vuejs-datepicker');
 window.Moment = require('moment');
 window.jQuery = require('jquery');
+window.M = require('materialize-css');
 
 window.bus = new Vue();
 /**
@@ -32,6 +33,8 @@ Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHo
 
 Vue.component('lucro', require('./components/dashboard/Lucro.vue'));
 
+Vue.component('minha-conta', require('./components/auth/MinhaConta.vue'));
+
 /**
  * Componentes Login
  */
@@ -46,7 +49,8 @@ Vue.component('contas', require('./components/contas/Contas.vue'));
 Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));
 Vue.component('tabela-transacoes', require('./components/contas/Transacoes.vue'));
 Vue.component('abrir-conta', require('./components/contas/AbrirConta.vue'));
-
+Vue.component('contas-abertas', require('./components/contas/ContasAbertas.vue'));
+Vue.component('contas-dados', require('./components/contas/ContasDados.vue'));
 /**
  * Componentes externos
  */

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Transacao;
+use App\Conta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,22 @@ class ContasController extends Controller {
         return $transacao;
     }
 
-    public function getContas() {
+    public function getContas($json = true) {
+        $user = Auth::user();
+        $contas = DB::table('contas')
+            ->select('conta_id', 'nome')
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        if($json) {
+            $arrayContas = array("contas" => $contas);
+            return $this->resposta($arrayContas, 'json');
+        }
+        else
+            return $contas;
+    }
+
+    public function getDadosContas() {
         $user = Auth::user();
         $contas = DB::table('contas')
             ->select('conta_id', 'nome')
@@ -109,6 +125,29 @@ class ContasController extends Controller {
         $arrayTransacoes = array("transacoes" => $transacoes);
 
         return $this->resposta($arrayTransacoes, 'json');
+    }
+
+    public function storeConta (Request $request) {
+
+        $user = Auth::user();
+        $contas = $this->getContas(false);
+        $totalContas = count($contas) + 1;
+
+
+        $conta_prefix = str_pad($totalContas, 4, "0", STR_PAD_LEFT);
+
+        $conta_id = $conta_prefix.substr($user->user_id, 0, -4);
+
+        $conta = new Conta;
+
+        $conta->user_id = $user->user_id;
+        $conta->conta_id = $conta_id;
+        $conta->nome = $request->input('nome');
+
+        if($conta->save())
+            return $this->resposta(array("message" => $this->mensagens['CriadoSucesso']), 'json');
+        else
+            return $this->resposta(array("message" => $this->mensagens['CriadoErro']), 'json');
     }
 
 }
