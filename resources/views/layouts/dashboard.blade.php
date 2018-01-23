@@ -61,6 +61,7 @@
                                 <ul>
                                     <li><a class="white-text" href="{{ route('investimentos') }}">Investir</a></li>
                                     <li><a class="white-text" href="{{ route('investimentos') }}">Investimentos Ativos</a></li>
+                                    <li><a class="white-text" href="{{ route('relatorios') }}">Relatórios</a></li>
                                 </ul>
                             </div>
                         </li>

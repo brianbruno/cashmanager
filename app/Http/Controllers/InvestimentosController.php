@@ -14,8 +14,7 @@ class InvestimentosController extends Controller {
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
@@ -98,6 +97,7 @@ class InvestimentosController extends Controller {
                 DB::raw('DATE_FORMAT(created_at, "%d/%m/%Y") AS data'))
             ->where('user_id', $user->user_id)
             ->orderBy('created_at', 'DESC')
+            ->limit(10)
             ->get();
 
         $arrayInvestimentos = array("investimentos" => $ultimosCincoInvestimentos);

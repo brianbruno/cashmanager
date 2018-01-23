@@ -25,9 +25,7 @@ Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('saldo-conta', require('./components/contas/SaldoConta.vue'));
 Vue.component('investimentos', require('./components/Investimentos.vue'));
 Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
-Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
 
-Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
 Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
 Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHora.vue'));
 
@@ -43,7 +41,14 @@ Vue.component('registro', require('./components/auth/Register.vue'));
 
 
 /**
- * Componentes conta
+ * Componentes Invetimentos
+ */
+Vue.component('novo-investimento', require('./components/investimentos/NovoInvestimento.vue'));
+Vue.component('tabela-investimentos', require('./components/investimentos/TabelaInvestimentos.vue'));
+Vue.component('invetimentos-finalizados', require('./components/investimentos/RelatorioInvetimentosFinalizados.vue'));
+
+/**
+ * Componentes Conta
  */
 Vue.component('contas', require('./components/contas/Contas.vue'));
 Vue.component('nova-movimentacao', require('./components/contas/NovaMovimentacao.vue'));

@@ -136,6 +136,8 @@ Route::get('/contas/transacoes/{returnType?}', function($returnType = 'view', Il
 
 Route::view('/registro', 'auth.registro');
 
+Route::view('/investimentos/relatorios', 'investimentos.relatorios')->middleware('auth')->name('relatorios');
+
 Route::view('/contas/abrirconta', 'contas.abrir')->name('abrir-conta');
 
 Route::get('/minha-conta', function () {
@@ -168,3 +170,11 @@ Route::post('/contas/apagar', function(Illuminate\Http\Request $request){
     return $contasController->deletarConta($request);
 
 })->middleware('auth')->name('deletar-conta');
+
+Route::get('/investimentos/relatorios/{returnType?}', function($returnType = 'view'){
+    $investimentoController = app()->make('\App\Http\Controllers\RelatorioInvestimentoController');
+    if($returnType == 'view')
+        return view('investimentos.relatorios');
+    else
+        return $investimentoController ->getPorcentagensLucro();
+})->middleware('auth');
