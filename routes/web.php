@@ -178,3 +178,14 @@ Route::get('/investimentos/relatorios/{returnType?}', function($returnType = 'vi
     else
         return $investimentoController ->getPorcentagensLucro();
 })->middleware('auth');
+
+Route::prefix('niquelino')->group(function () {
+
+    Route::get('/home', function(){
+        $niquelinoController = app()->make('\App\Http\Controllers\Niquelino\NiquelinoController');
+        return $niquelinoController ->index();
+    })->middleware('auth')->name('niquelino.dashboard');
+
+    Route::view('/configuracoes', 'niquelino.configuracoes')->middleware('auth')->name('niquelino.configuracoes');
+
+});

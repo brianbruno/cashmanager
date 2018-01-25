@@ -15,6 +15,17 @@
                                     </select>
                                     <label>Conta Principal</label>
                                 </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <p>Niquelino</p>
+                                        <label>
+                                            Off
+                                            <input v-model="userPreferences.niquelino_ativo" type="checkbox">
+                                            <span class="lever"></span>
+                                            On
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-action">
                                 <button class="btn waves-effect waves-light waves-blue-grey blue-grey darken-4 right"
@@ -40,7 +51,7 @@
         },
         data () {
             return {
-                userPreferences : {'conta_principal': '', '_token': ''},
+                userPreferences : {'conta_principal': '', 'niquelino_ativo': true, '_token': ''},
                 contas: {'conta_id': '', 'nome': ''},
                 isLoading: false,
                 csrf_token: jQuery('meta[name="csrf-token"]').attr('content'),
@@ -55,8 +66,15 @@
             },
             changePreferences: function(){
                 this.showLoading();
+
+                if(this.userPreferences.niquelino_ativo)
+                    this.userPreferences.niquelino_ativo = 1;
+                else
+                    this.userPreferences.niquelino_ativo = 0;
+
                 var input = this.userPreferences;
                 input._token = this.csrf_token;
+
                 this.$http.post('/auth/preferencias',input).then((response) => {
                     M.toast({html: response.body.message, classes: 'rounded'});
                 }, (response) => {
@@ -70,6 +88,12 @@
                 this.$http.get('/auth/getPreferences/json').then((response) => {
                     this.contas = response.body.contas;
                     this.userPreferences = response.body.preferencias[0];
+
+                    if(this.userPreferences.niquelino_ativo === 0)
+                        this.userPreferences.niquelino_ativo = false;
+                    else
+                        this.userPreferences.niquelino_ativo = true;
+
                 }, (response) => {
                     this.formErrors = response.data;
                 }).finally(function () {

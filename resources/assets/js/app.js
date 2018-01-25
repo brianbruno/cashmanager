@@ -56,10 +56,19 @@ Vue.component('tabela-transacoes', require('./components/contas/Transacoes.vue')
 Vue.component('abrir-conta', require('./components/contas/AbrirConta.vue'));
 Vue.component('contas-abertas', require('./components/contas/ContasAbertas.vue'));
 Vue.component('contas-dados', require('./components/contas/ContasDados.vue'));
+
 /**
  * Componentes externos
  */
 Vue.component('date-picker', Datepicker);
+
+/**
+ * Componentes Niquelino
+ */
+Vue.component('niquelino-dashboard', require('./components/niquelino/NiquelinoDashboard.vue'));
+Vue.component('niquelino-configuracoes', require('./components/niquelino/NiquelinoConfiguracoes.vue'));
+Vue.component('niquelino-saldo', require('./components/niquelino/NiquelinoSaldo.vue'));
+Vue.component('niquelino-ordens', require('./components/niquelino/NiquelinoOrdens.vue'));
 
 const app = new Vue({
     el: '#app'

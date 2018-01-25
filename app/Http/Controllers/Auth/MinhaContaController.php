@@ -51,7 +51,7 @@ class MinhaContaController extends Controller {
         $user = Auth::user();
 
         $query = DB::table('users_preferences')
-            ->select('conta_principal')
+            ->select('conta_principal', 'niquelino_ativo')
             ->where('user_id', $user->user_id)
             ->get();
 
@@ -61,10 +61,14 @@ class MinhaContaController extends Controller {
     public function store(Request $request) {
 
         $user = Auth::user();
+
         $conta_principal = $request->input('conta_principal');
+        $niquelino_ativo = $request->input('niquelino_ativo');
+
         $userPreferences = UserPreferences::where('user_id', '=' ,$user->user_id)->firstOrFail();
 
         $userPreferences->conta_principal = $conta_principal;
+        $userPreferences->niquelino_ativo = $niquelino_ativo;
 
         if($userPreferences->save())
             return $this->resposta(array("message" => $this->mensagens['AtualizacaoSucesso']), 'json');
