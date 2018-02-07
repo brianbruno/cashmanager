@@ -8,16 +8,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NovaTransacao;
 use App\Transacao;
 use App\Conta;
 use App\Http\Controllers\Auth\MinhaContaController;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use App\Admin;
 
 
 class ContasController extends Controller {
 
+    use Notifiable;
     /**
      * Create a new controller instance.
      *
@@ -64,6 +69,9 @@ class ContasController extends Controller {
         $transacao->valor = $request->input('valor');
 
         $transacao->save();
+
+        $admin = new Admin();
+        $admin->notify(new NovaTransacao($transacao));
 
         return $transacao;
     }

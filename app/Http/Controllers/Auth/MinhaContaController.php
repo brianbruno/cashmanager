@@ -58,6 +58,17 @@ class MinhaContaController extends Controller {
         return $query;
     }
 
+    public function getTelegramUserID () {
+        $user = Auth::user();
+
+        $query = DB::table('users_preferences')
+            ->select('telegram_id')
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        return $query[0]->telegram_id;
+    }
+
     public function store(Request $request) {
 
         $user = Auth::user();

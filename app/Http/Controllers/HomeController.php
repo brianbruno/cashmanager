@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TelegramNotificationController;
 
 class HomeController extends Controller {
+
+    protected $telegram;
     /**
      * Create a new controller instance.
      *
@@ -16,6 +19,7 @@ class HomeController extends Controller {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->telegram = new TelegramNotificationController();
     }
 
     /**
@@ -45,6 +49,8 @@ class HomeController extends Controller {
             ->orderBy('created_at', 'DESC')
             ->limit(5)
             ->get();
+
+        $this->telegram->toTelegram();
 
         $arrayInvestimentos = array("investimentos" => $ultimosCincoInvestimentos);
 
