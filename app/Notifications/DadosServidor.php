@@ -8,20 +8,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 
-class NovaTransacao extends Notification implements ShouldQueue
+class DadosServidor extends Notification
 {
     use Queueable;
-
-    private $transacao;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($transacao)
+    public function __construct()
     {
-        $this->transacao = $transacao;
+        //
     }
 
     /**
@@ -32,7 +30,7 @@ class NovaTransacao extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['slack'];
+        return ['mail'];
     }
 
     /**
@@ -60,7 +58,7 @@ class NovaTransacao extends Notification implements ShouldQueue
         return (new SlackMessage)
             ->success()
             ->to('#notificacoes')
-            ->content("Uma nova transação foi realizada! Usuário: " . $this->transacao->user_id . ". ID: " . $this->transacao->trans_id . ". Valor: " . number_format($this->transacao->valor, 2, ',', '.') . ".");
+            ->content("Trabalho cron realizado com sucesso.");
     }
 
     /**
