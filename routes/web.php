@@ -15,7 +15,6 @@ Route::get('/', function () {
     if(Auth::check()){
         $homeController = app()->make('\App\Http\Controllers\HomeController');
         return $homeController->index();
-        return ;
     }else{
         return view('auth.home');
     }

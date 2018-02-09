@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\Model;
 class Admin extends Model {
     // Import Notifiable Trait
     use Notifiable;
+    public function __construct()
+    {
+        //
+    }
     // Specify Slack Webhook URL to route notifications to
     public function routeNotificationForSlack() {
         return 'https://hooks.slack.com/services/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';

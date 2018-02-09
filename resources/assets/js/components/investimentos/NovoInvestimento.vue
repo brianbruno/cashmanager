@@ -72,7 +72,7 @@
                 var input = this.newInvestimento;
                 this.$http.post('/investimentos/save',input).then((response) => {
                     this.newInvestimento = {'tipo':'OPCAO', 'valor': '','lucro':''};
-                    this.$emit('atualizou');
+                    bus.$emit('atualizar-tabela-investimentos');
                 }, (response) => {
                     this.formErrors = response.data;
                 }).finally(function () {

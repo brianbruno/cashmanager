@@ -36,7 +36,6 @@
     export default {
         mounted() {
             this.carregarInvestimentos();
-            this.$on('atualizar-tabela-investimentos', () => this.carregarInvestimentos());
         },
         data () {
             return {

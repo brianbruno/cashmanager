@@ -12,6 +12,7 @@ use App\Notifications\NovaTransacao;
 use App\Transacao;
 use App\Conta;
 use App\Http\Controllers\Auth\MinhaContaController;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -70,8 +71,7 @@ class ContasController extends Controller {
 
         $transacao->save();
 
-        $admin = new Admin();
-        $admin->notify(new NovaTransacao($transacao));
+        $user->notify(new NovaTransacao($transacao));
 
         return $transacao;
     }
