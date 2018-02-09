@@ -217,4 +217,19 @@ class ContasController extends Controller {
         return $this->resposta(array("message" => $returnMessage), 'json');
     }
 
+    public function dadosServidor() {
+
+        $contas = DB::table('contas')
+            ->select(DB::raw('count(conta_id) as contas'))
+            ->where('status', 'A')
+            ->get();
+
+        $transacoes = DB::table('transacoes')
+            ->select(DB::raw('count(trans_id) as transacoes'))
+            ->whereDay('created_at', date('d'))
+            ->get();
+
+        return [$contas, $transacoes];
+    }
+
 }

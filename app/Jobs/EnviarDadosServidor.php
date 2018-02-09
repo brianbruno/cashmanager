@@ -2,12 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Conta;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContasController;
 use App\Admin;
 use App\Notifications\DadosServidor;
 
@@ -32,7 +33,11 @@ class EnviarDadosServidor implements ShouldQueue
      */
     public function handle()
     {
+        $contasController = new ContasController();
+
+        $dados = $contasController->dadosServidor();
+
         $admin = new Admin();
-        $admin->notify(new DadosServidor());
+        $admin->notify(new DadosServidor($dados));
     }
 }

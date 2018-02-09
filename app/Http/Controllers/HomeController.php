@@ -50,8 +50,6 @@ class HomeController extends Controller {
             ->limit(5)
             ->get();
 
-        $this->telegram->toTelegram();
-
         $arrayInvestimentos = array("investimentos" => $ultimosCincoInvestimentos);
 
         return $this->resposta($arrayInvestimentos, 'json');

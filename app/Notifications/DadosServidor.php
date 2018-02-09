@@ -11,15 +11,16 @@ use Illuminate\Notifications\Messages\SlackMessage;
 class DadosServidor extends Notification
 {
     use Queueable;
+    private $dados;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($dados)
     {
-        //
+        $this->dados = $dados;
     }
 
     /**
@@ -30,7 +31,7 @@ class DadosServidor extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['slack'];
     }
 
     /**
@@ -53,12 +54,18 @@ class DadosServidor extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\SlackMessage
      */
-    public function toSlack($notifiable)
+    public function toSlack()
     {
+        $contas = $this->dados[0];
+        $transacoes = $this->dados[1];
+
         return (new SlackMessage)
             ->success()
             ->to('#notificacoes')
-            ->content("Trabalho cron realizado com sucesso.");
+            ->content("## CashManager ##\n\n" .
+            "Contas cadastradas: " . $contas[0]->contas . "\n"
+            ."Transações hoje: " . $transacoes[0]->transacoes . "\n"
+            ."\nUm beijo, CashManager Bot");
     }
 
     /**
