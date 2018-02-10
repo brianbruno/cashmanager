@@ -70,6 +70,12 @@ Vue.component('niquelino-configuracoes', require('./components/niquelino/Niqueli
 Vue.component('niquelino-saldo', require('./components/niquelino/NiquelinoSaldo.vue'));
 Vue.component('niquelino-ordens', require('./components/niquelino/NiquelinoOrdens.vue'));
 
+/**
+ * Dashboard
+ */
+Vue.component('valores-mercado', require('./components/dashboard/ValoresMercado.vue'));
+
+
 const app = new Vue({
     el: '#app'
 });

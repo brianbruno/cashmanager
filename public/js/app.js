@@ -34053,9 +34053,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(253);
-__webpack_require__(416);
-__webpack_require__(417);
-module.exports = __webpack_require__(418);
+__webpack_require__(421);
+__webpack_require__(422);
+module.exports = __webpack_require__(423);
 
 
 /***/ }),
@@ -34132,6 +34132,11 @@ Vue.component('niquelino-dashboard', __webpack_require__(400));
 Vue.component('niquelino-configuracoes', __webpack_require__(405));
 Vue.component('niquelino-saldo', __webpack_require__(406));
 Vue.component('niquelino-ordens', __webpack_require__(411));
+
+/**
+ * Dashboard
+ */
+Vue.component('valores-mercado', __webpack_require__(416));
 
 var app = new Vue({
   el: '#app'
@@ -89480,18 +89485,342 @@ if (false) {
 
 /***/ }),
 /* 416 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(417)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(419)
+/* template */
+var __vue_template__ = __webpack_require__(420)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1997a0a0"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\dashboard\\ValoresMercado.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1997a0a0", Component.options)
+  } else {
+    hotAPI.reload("data-v-1997a0a0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 /* 417 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(418);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("4a143dde", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1997a0a0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ValoresMercado.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1997a0a0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ValoresMercado.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#cripto-values[data-v-1997a0a0] {\n    padding-left: 15px;\n}\n.chip-css[data-v-1997a0a0] {\n    display: inline-block;\n    padding: 0 15px;\n    height: 50px;\n    font-size: 16px;\n    line-height: 50px;\n    border-radius: 15px;\n    background-color: #f1f1f1;\n    -webkit-transition: 1.5s;\n    transition: 1.5s;\n}\n.chip-css img[data-v-1997a0a0] {\n    float: left;\n    margin: 0 10px 0 -25px;\n    height: 35px;\n    width: 35px;\n    border-radius: 50%;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 419 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        var t = this;
+        t.carregarMercadoBitCoin();
+        //t.carregarMercado();
+        setInterval(function () {
+            t.carregarMercadoBitCoin();
+            //t.carregarMercado();
+        }, 10000);
+    },
+    data: function data() {
+        return {
+            bitcoin_market: {
+                percent_change_24h: '0%',
+                price_usd: '00000.00'
+            },
+            market: {
+                price_ltc_btc: 0
+
+            },
+            bitcoin_bgc: {
+                backgroundColor: '#f1f1f1'
+            },
+            bitcoin_lucro: false,
+            bitcoin_perda: true,
+            isLoadingLucro: false,
+            exibirLucro: false
+        };
+    },
+
+    methods: {
+        efeitoFlash: function efeitoFlash() {
+            var t = this;
+            t.bitcoin_bgc.backgroundColor = '#e0f2f1';
+            setTimeout(function () {
+                t.bitcoin_bgc.backgroundColor = '#f1f1f1';
+            }, 1000);
+        },
+        carregarMercado: function carregarMercado() {
+
+            var t = this;
+
+            this.$http.get('https://bittrex.com/api/v1.1/public/getmarketsummary?market=BTC-LTC').then(function (response) {
+                t.efeitoFlash();
+                t.market.price_ltc_btc = response.body[0].result[0].Last;
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        carregarMercadoBitCoin: function carregarMercadoBitCoin() {
+
+            var t = this;
+
+            this.$http.get('https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=BRL').then(function (response) {
+                t.efeitoFlash();
+                t.bitcoin_market = response.body[0];
+
+                if (t.bitcoin_market.percent_change_24h > 0) {
+                    t.bitcoin_lucro = true;
+                    t.bitcoin_perda = false;
+                } else {
+                    t.bitcoin_lucro = false;
+                    t.bitcoin_perda = true;
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "navbar-fixed hide-on-med-and-down" }, [
+    _c("nav", [
+      _c(
+        "div",
+        {
+          staticClass: "nav-wrapper blue-grey lighten-5",
+          attrs: { id: "cripto-values" }
+        },
+        [
+          _c("div", { staticClass: "chip-css", style: _vm.bitcoin_bgc }, [
+            _c("img", {
+              attrs: {
+                src: "http://cashmanager.brian.place/public/img/btc.png",
+                alt: "Person"
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "blue-grey-text" }, [
+              _vm._v("U$ " + _vm._s(_vm.bitcoin_market.price_usd) + " ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                class: {
+                  "red-text": _vm.bitcoin_perda,
+                  "green-text": _vm.bitcoin_lucro
+                }
+              },
+              [_vm._v(_vm._s(_vm.bitcoin_market.percent_change_24h) + "%")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "chip-css hide" }, [
+            _c("img", {
+              attrs: {
+                src: "http://cashmanager.brian.place/public/img/ltc.png",
+                alt: "Person"
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "blue-grey-text" }, [
+              _vm._v("BTC " + _vm._s(_vm.market.price_ltc_btc) + " ")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "chip-css hide" }, [
+      _c("img", {
+        attrs: {
+          src: "http://cashmanager.brian.place/public/img/eth.png",
+          alt: "Person"
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "blue-grey-text" }, [_vm._v("142.65 ")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "chip-css hide" }, [
+      _c("img", {
+        attrs: {
+          src: "http://cashmanager.brian.place/public/img/dash.png",
+          alt: "Person"
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "blue-grey-text" }, [_vm._v("142.65 ")]),
+      _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "chip-css hide" }, [
+      _c("img", {
+        attrs: {
+          src: "http://cashmanager.brian.place/public/img/ubq.png",
+          alt: "Person"
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "blue-grey-text" }, [_vm._v("142.65 ")]),
+      _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1997a0a0", module.exports)
+  }
+}
+
+/***/ }),
+/* 421 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 418 */
+/* 422 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 423 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

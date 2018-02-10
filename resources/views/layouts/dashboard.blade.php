@@ -16,6 +16,8 @@
     <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 </head>
 <body class="blue-grey lighten-5">
     <div id="app">
@@ -79,10 +81,12 @@
             </ul>
         </header>
         <main>
-            @yield('content')
+            <valores-mercado></valores-mercado>
+            <div class="content">
+                @yield('content')
+            </div>
         </main>
     </div>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -93,7 +97,6 @@
             $('.sidenav').sidenav();
             $('.collapsible').collapsible();
         });
-
     </script>
 </body>
 </html>
