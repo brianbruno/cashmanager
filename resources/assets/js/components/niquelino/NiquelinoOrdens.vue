@@ -5,39 +5,36 @@
                 <span class="card-title black-text">Últimas ordens</span>
                 <div>
                     <table v-show="!isLoading">
-                        <thead class="orange lighten-3" id="tableTransacoes" >
+                        <thead class="orange lighten-3" id="tableTransacoes">
                         <tr>
                             <th>Tipo</th>
-                            <th>ID Transação</th>
-                            <th>Conta</th>
-                            <th>Data</th>
+                            <th>Moeda</th>
                             <th>Quantidade</th>
-                            <th>Valor Compra</th>
-                            <th>Valor Venda</th>
-                            <th>Lucro</th>
+                            <th>Total</th>
+                            <th>Preço</th>
+                            <th>Exchange</th>
+                            <th>Data da Ordem</th>
                         </tr>
                         </thead>
                         <tbody class="orange lighten-5 linhaTabela">
-                        <tr>
-                            <td class="bold">BUY</td>
-                            <td>17011818070016942195</td>
-                            <td>Carteira BTC</td>
-                            <td>17-01-2018 18:07:07</td>
-                            <th>BTC 0,000056</th>
-                            <th>U$ 14.368,96</th>
-                            <th><span class="brow-text"><i class="material-icons">not_interested</i></span></th>
-                            <th><span class="brow-text"><i class="material-icons">not_interested</i></span></th>
-                        </tr>
-                        <tr>
-                            <td class="bold">SELL</td>
-                            <td>17011818070046942195</td>
-                            <td>Carteira BTC</td>
-                            <td>17-01-2018 18:18:12</td>
-                            <th>BTC 0,000056</th>
-                            <th>U$ 14.368,96</th>
-                            <th>U$ 14.370,01</th>
-                            <th>2,58 %</th>
-                        </tr>
+                            <tr>
+                                <td class="bold"><span class="left badge green new" data-badge-caption="Compra"></span></td>
+                                <td>LTC</td>
+                                <td>0.0184873</td>
+                                <td>17-01-2018 18:18:12</td>
+                                <th>BTC 0,000056</th>
+                                <th>BitTrex</th>
+                                <th>17-01-2018 18:07:07</th>
+                            </tr>
+                            <tr>
+                                <td class="bold"><span class="left badge red new" data-badge-caption="Venda"></span></td>
+                                <td>LTC</td>
+                                <td>0.0184873</td>
+                                <td>0.0184873</td>
+                                <th>BTC 0,000096</th>
+                                <th>BitTrex</th>
+                                <th>17-01-2018 18:07:07</th>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -69,10 +66,8 @@
     }
 </script>
 
-<style>
-    #divSaldo {
-        alignment: center !important;
-    }
+<style scoped>
+
 </style>
 
 
