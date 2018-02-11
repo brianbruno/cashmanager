@@ -89569,7 +89569,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n#cripto-values[data-v-1997a0a0] {\n    padding-left: 15px;\n}\n.chip-css[data-v-1997a0a0] {\n    display: inline-block;\n    padding: 0 15px;\n    height: 50px;\n    font-size: 16px;\n    line-height: 50px;\n    border-radius: 15px;\n    background-color: #f1f1f1;\n    -webkit-transition: 1.5s;\n    transition: 1.5s;\n}\n.chip-css img[data-v-1997a0a0] {\n    float: left;\n    margin: 0 10px 0 -25px;\n    height: 35px;\n    width: 35px;\n    border-radius: 50%;\n}\n\n", ""]);
+exports.push([module.i, "\n#cripto-values[data-v-1997a0a0] {\n    padding-left: 20px;\n}\n.chip-css[data-v-1997a0a0] {\n    display: inline-block;\n    padding: 0 15px;\n    height: 50px;\n    font-size: 16px;\n    line-height: 50px;\n    border-radius: 15px;\n    background-color: #f1f1f1;\n    -webkit-transition: 1.5s;\n    transition: 1.5s;\n}\n.chip-css img[data-v-1997a0a0] {\n    float: left;\n    margin: 0 10px 0 -25px;\n    height: 35px;\n    width: 35px;\n    vertical-align: center;\n    border-radius: 50%;\n}\n\n", ""]);
 
 // exports
 
@@ -89605,20 +89605,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         var t = this;
         t.carregarMercadoBitCoin();
-        //t.carregarMercado();
+        t.carregarMercado();
         setInterval(function () {
             t.carregarMercadoBitCoin();
-            //t.carregarMercado();
-        }, 10000);
+            t.carregarMercado();
+        }, 60000);
     },
     data: function data() {
         return {
@@ -89626,15 +89622,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 percent_change_24h: '0%',
                 price_usd: '00000.00'
             },
-            market: {
-                price_ltc_btc: 0
-
-            },
+            market: [{
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }, {
+                percent_change_24h: '0%',
+                price_btc: '00000.00'
+            }],
             bitcoin_bgc: {
+                backgroundColor: '#f1f1f1'
+            },
+            coins_bgc: {
                 backgroundColor: '#f1f1f1'
             },
             bitcoin_lucro: false,
             bitcoin_perda: true,
+            litecoin_lucro: false,
+            litecoin_perda: true,
+            eth_lucro: false,
+            eth_perda: true,
+            dash_lucro: false,
+            dash_perda: true,
             isLoadingLucro: false,
             exibirLucro: false
         };
@@ -89643,18 +89681,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         efeitoFlash: function efeitoFlash() {
             var t = this;
+            t.coins_bgc.backgroundColor = '#e0f2f1';
+            setTimeout(function () {
+                t.coins_bgc.backgroundColor = '#f1f1f1';
+            }, 1500);
+        },
+        efeitoFlashBitCoin: function efeitoFlashBitCoin() {
+            var t = this;
             t.bitcoin_bgc.backgroundColor = '#e0f2f1';
             setTimeout(function () {
                 t.bitcoin_bgc.backgroundColor = '#f1f1f1';
-            }, 1000);
+            }, 1500);
         },
         carregarMercado: function carregarMercado() {
 
             var t = this;
 
-            this.$http.get('https://bittrex.com/api/v1.1/public/getmarketsummary?market=BTC-LTC').then(function (response) {
+            this.$http.get('https://api.coinmarketcap.com/v1/ticker/').then(function (response) {
                 t.efeitoFlash();
-                t.market.price_ltc_btc = response.body[0].result[0].Last;
+                t.market = response.body;
+
+                if (t.market[5].percent_change_24h > 0) {
+                    t.litecoin_lucro = true;
+                    t.litecoin_perda = false;
+                } else {
+                    t.litecoin_lucro = false;
+                    t.litecoin_perda = true;
+                }
+
+                if (t.market[1].percent_change_24h > 0) {
+                    t.eth_lucro = true;
+                    t.eth_perda = false;
+                } else {
+                    t.eth_lucro = false;
+                    t.eth_perda = true;
+                }
+
+                if (t.market[11].percent_change_24h > 0) {
+                    t.dash_lucro = true;
+                    t.dash_perda = false;
+                } else {
+                    t.dash_lucro = false;
+                    t.dash_perda = true;
+                }
             }, function (error) {
                 console.log(error);
             });
@@ -89664,7 +89733,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var t = this;
 
             this.$http.get('https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=BRL').then(function (response) {
-                t.efeitoFlash();
+                t.efeitoFlashBitCoin();
                 t.bitcoin_market = response.body[0];
 
                 if (t.bitcoin_market.percent_change_24h > 0) {
@@ -89698,11 +89767,11 @@ var render = function() {
           attrs: { id: "cripto-values" }
         },
         [
-          _c("div", { staticClass: "chip-css", style: _vm.bitcoin_bgc }, [
+          _c("div", { staticClass: "chip", style: _vm.bitcoin_bgc }, [
             _c("img", {
               attrs: {
                 src: "http://cashmanager.brian.place/public/img/btc.png",
-                alt: "Person"
+                alt: "btc"
               }
             }),
             _vm._v(" "),
@@ -89722,82 +89791,85 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "chip-css hide" }, [
+          _c("div", { staticClass: "chip", style: _vm.coins_bgc }, [
             _c("img", {
               attrs: {
                 src: "http://cashmanager.brian.place/public/img/ltc.png",
-                alt: "Person"
+                alt: "ltc"
               }
             }),
             _vm._v(" "),
             _c("span", { staticClass: "blue-grey-text" }, [
-              _vm._v("BTC " + _vm._s(_vm.market.price_ltc_btc) + " ")
+              _vm._v("BTC " + _vm._s(_vm.market[5].price_btc) + " ")
             ]),
             _vm._v(" "),
-            _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
+            _c(
+              "span",
+              {
+                staticClass: "red-text",
+                class: {
+                  "red-text": _vm.litecoin_perda,
+                  "green-text": _vm.litecoin_lucro
+                }
+              },
+              [_vm._v(_vm._s(_vm.market[5].percent_change_24h) + "%")]
+            )
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "chip", style: _vm.coins_bgc }, [
+            _c("img", {
+              attrs: {
+                src: "http://cashmanager.brian.place/public/img/eth.png",
+                alt: "eth"
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "blue-grey-text" }, [
+              _vm._v("BTC " + _vm._s(_vm.market[1].price_btc) + " ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "red-text",
+                class: {
+                  "red-text": _vm.eth_perda,
+                  "green-text": _vm.eth_lucro
+                }
+              },
+              [_vm._v(_vm._s(_vm.market[1].percent_change_24h) + "%")]
+            )
+          ]),
           _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "chip", style: _vm.coins_bgc }, [
+            _c("img", {
+              attrs: {
+                src: "http://cashmanager.brian.place/public/img/dash.png",
+                alt: "dash"
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "blue-grey-text" }, [
+              _vm._v("BTC " + _vm._s(_vm.market[11].price_btc) + " ")
+            ]),
+            _c(
+              "span",
+              {
+                staticClass: "red-text",
+                class: {
+                  "red-text": _vm.dash_perda,
+                  "green-text": _vm.dash_lucro
+                }
+              },
+              [_vm._v(_vm._s(_vm.market[11].percent_change_24h) + "%")]
+            )
+          ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chip-css hide" }, [
-      _c("img", {
-        attrs: {
-          src: "http://cashmanager.brian.place/public/img/eth.png",
-          alt: "Person"
-        }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "blue-grey-text" }, [_vm._v("142.65 ")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chip-css hide" }, [
-      _c("img", {
-        attrs: {
-          src: "http://cashmanager.brian.place/public/img/dash.png",
-          alt: "Person"
-        }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "blue-grey-text" }, [_vm._v("142.65 ")]),
-      _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chip-css hide" }, [
-      _c("img", {
-        attrs: {
-          src: "http://cashmanager.brian.place/public/img/ubq.png",
-          alt: "Person"
-        }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "blue-grey-text" }, [_vm._v("142.65 ")]),
-      _c("span", { staticClass: "red-text" }, [_vm._v("-12,53%")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
