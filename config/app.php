@@ -224,7 +224,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'ContaController' => App\Http\Controllers\ContasController::class,
+        'MinhaContaController' => App\Http\Controllers\Auth\MinhaContaController::class,
     ],
 
 ];

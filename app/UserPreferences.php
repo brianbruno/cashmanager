@@ -18,7 +18,7 @@ class UserPreferences extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id', 'conta_principal', 'niquelino_ativo', 'telegram_id',
+        'user_id', 'conta_principal', 'niquelino_ativo', 'mostrar_saldo',
     ];
 
     /**

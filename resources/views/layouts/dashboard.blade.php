@@ -16,6 +16,13 @@
     <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Shanti" rel="stylesheet">
+
+    <style>
+        #saldo-btc {
+            font-family: 'Shanti', sans-serif;
+        }
+    </style>
 
 
 </head>
@@ -46,6 +53,15 @@
                         </div>
                     </div>
                 </div>
+                @if (MinhaContaController::showSaldoOnMenu() == 'S')
+                <div class="card grey darken-4 hoverable">
+                    <div class="card-content">
+                        <div class="col s12 valign-wrapper">
+                            <span class="green-text"><i class="material-icons small">attach_money</i></span> <span id="saldo-btc" class="white-text flow-text">{{ ContaController::getSaldo() }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
                         <li><a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Contas</h5></a>
@@ -67,7 +83,8 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Niquelino Bot</h5></a>
+                        <li>
+                            <a class="collapsible-header waves-effect waves-blue-grey white-text itemNavBar"><h5>Niquelino Bot</h5></a>
                             <div class="collapsible-body blue-grey darken-3">
                                 <ul>
                                     <li><a class="white-text" href="{{ route('niquelino.dashboard') }}">Dashboard</a></li>

@@ -9,22 +9,27 @@
                         <sc-loading v-show="isLoading"></sc-loading>
                         <div id="cardInvestimento" v-show="!isLoading">
                             <div class="row">
-                                <div class="input-field col s6">
+                                <div class="input-field col s4">
                                     <select name="conta" v-model="userPreferences.conta_principal" required>
                                         <option v-for="conta in contas" :value="conta.conta_id">{{ conta.nome }}</option>
                                     </select>
                                     <label>Conta Principal</label>
                                 </div>
-                                <div class="input-field col s6">
-                                    <div class="switch">
-                                        <p>Niquelino</p>
-                                        <label>
-                                            Off
-                                            <input v-model="userPreferences.niquelino_ativo" type="checkbox">
-                                            <span class="lever"></span>
-                                            On
-                                        </label>
-                                    </div>
+
+                                <div class="input-field col s4">
+                                    <select v-model="userPreferences.niquelino_ativo" required>
+                                        <option value="S">Ativado</option>
+                                        <option value="N">Desativado</option>
+                                    </select>
+                                    <label>Niquelino</label>
+                                </div>
+
+                                <div class="input-field col s4">
+                                    <select v-model="userPreferences.mostrar_saldo" required>
+                                        <option value="S">Ativado</option>
+                                        <option value="N">Desativado</option>
+                                    </select>
+                                    <label>Mostrar saldo no menu lateral</label>
                                 </div>
                             </div>
                             <div class="card-action">
@@ -51,7 +56,7 @@
         },
         data () {
             return {
-                userPreferences : {'conta_principal': '', 'niquelino_ativo': true, '_token': ''},
+                userPreferences : {'conta_principal': '', 'niquelino_ativo': 1, 'mostrar_saldo': 'S','_token': ''},
                 contas: {'conta_id': '', 'nome': ''},
                 isLoading: false,
                 csrf_token: jQuery('meta[name="csrf-token"]').attr('content'),
@@ -66,11 +71,6 @@
             },
             changePreferences: function(){
                 this.showLoading();
-
-                if(this.userPreferences.niquelino_ativo)
-                    this.userPreferences.niquelino_ativo = 1;
-                else
-                    this.userPreferences.niquelino_ativo = 0;
 
                 var input = this.userPreferences;
                 input._token = this.csrf_token;
@@ -88,11 +88,6 @@
                 this.$http.get('/auth/getPreferences/json').then((response) => {
                     this.contas = response.body.contas;
                     this.userPreferences = response.body.preferencias[0];
-
-                    if(this.userPreferences.niquelino_ativo === 0)
-                        this.userPreferences.niquelino_ativo = false;
-                    else
-                        this.userPreferences.niquelino_ativo = true;
 
                 }, (response) => {
                     this.formErrors = response.data;

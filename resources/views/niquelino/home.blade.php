@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col s12">
-        @if ($niquelino_ativo)
+        @if (MinhaContaController::niquelinoAtivo() == 'S')
             <niquelino-dashboard></niquelino-dashboard>
         @else
         <div class="col s12">

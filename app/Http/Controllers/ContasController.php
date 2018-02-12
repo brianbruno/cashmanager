@@ -232,4 +232,21 @@ class ContasController extends Controller {
         return [$contas, $transacoes];
     }
 
+    public static function getSaldo(){
+        $user = Auth::user();
+
+        $conta_principal = DB::table('users_preferences')
+            ->select('conta_principal')
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        $saldo = DB::table('saldo_contas')
+            ->select(DB::raw("format(saldo,2,'de_DE') as saldo"))
+            ->where('user_id', $user->user_id, DB::raw('MONTH(created_at) = MONTH(NOW())'))
+            ->where('conta_id', $conta_principal[0]->conta_principal)
+            ->get();
+
+        return $saldo[0]->saldo;
+    }
+
 }

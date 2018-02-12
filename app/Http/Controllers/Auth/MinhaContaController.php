@@ -36,7 +36,6 @@ class MinhaContaController extends Controller {
 
     public function getUserPreferences() {
         $this->contasController = new ContasController();
-        $user = Auth::user();
 
         $contas = $this->contasController->getContas(false);
 
@@ -51,22 +50,11 @@ class MinhaContaController extends Controller {
         $user = Auth::user();
 
         $query = DB::table('users_preferences')
-            ->select('conta_principal', 'niquelino_ativo')
+            ->select('conta_principal', 'niquelino_ativo', 'mostrar_saldo')
             ->where('user_id', $user->user_id)
             ->get();
 
         return $query;
-    }
-
-    public function getTelegramUserID () {
-        $user = Auth::user();
-
-        $query = DB::table('users_preferences')
-            ->select('telegram_id')
-            ->where('user_id', $user->user_id)
-            ->get();
-
-        return $query[0]->telegram_id;
     }
 
     public function store(Request $request) {
@@ -75,16 +63,40 @@ class MinhaContaController extends Controller {
 
         $conta_principal = $request->input('conta_principal');
         $niquelino_ativo = $request->input('niquelino_ativo');
+        $mostrar_saldo = $request->input('mostrar_saldo');
 
         $userPreferences = UserPreferences::where('user_id', '=' ,$user->user_id)->firstOrFail();
 
         $userPreferences->conta_principal = $conta_principal;
         $userPreferences->niquelino_ativo = $niquelino_ativo;
+        $userPreferences->mostrar_saldo = $mostrar_saldo;
 
         if($userPreferences->save())
             return $this->resposta(array("message" => $this->mensagens['AtualizacaoSucesso']), 'json');
         else
             return $this->resposta(array("message" => $this->mensagens['AtualizacaoErro']), 'json');
 
+    }
+
+    public static function showSaldoOnMenu(){
+        $user = Auth::user();
+
+        $mostrar_saldo = DB::table('users_preferences')
+            ->select('mostrar_saldo')
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        return $mostrar_saldo[0]->mostrar_saldo;
+    }
+
+    public static function niquelinoAtivo(){
+        $user = Auth::user();
+
+        $niquelino_ativo = DB::table('users_preferences')
+            ->select('niquelino_ativo')
+            ->where('user_id', $user->user_id)
+            ->get();
+
+        return $niquelino_ativo[0]->niquelino_ativo;
     }
 }
