@@ -1,25 +1,21 @@
 <template>
-    <div class="navbar-fixed hide-on-med-and-down">
-        <nav>
-            <div class="nav-wrapper blue-grey lighten-5" id="cripto-values">
-                <div class="chip" v-bind:style="bitcoin_bgc">
-                    <img src="http://cashmanager.brian.place/public/img/btc.png" alt="btc">
-                    <span class="blue-grey-text">$ {{ bitcoin_market.price_usd }} </span> <span v-bind:class="{ 'red-text': bitcoin_perda, 'green-text': bitcoin_lucro }">{{ bitcoin_market.percent_change_24h }}%</span>
-                </div>
-                <div class="chip" v-bind:style="coins_bgc">
-                    <img src="http://cashmanager.brian.place/public/img/ltc.png" alt="ltc">
-                    <span class="blue-grey-text">{{ market[5].price_btc }} </span> <span class="red-text" v-bind:class="{ 'red-text': litecoin_perda, 'green-text': litecoin_lucro }">{{ market[5].percent_change_24h }}%</span>
-                </div>
-                <div class="chip" v-bind:style="coins_bgc">
-                    <img src="http://cashmanager.brian.place/public/img/eth.png" alt="eth">
-                    <span class="blue-grey-text">{{ market[1].price_btc }} </span> <span class="red-text" v-bind:class="{ 'red-text': eth_perda, 'green-text': eth_lucro }">{{ market[1].percent_change_24h }}%</span>
-                </div>
-                <div class="chip" v-bind:style="coins_bgc">
-                    <img src="http://cashmanager.brian.place/public/img/dash.png" alt="dash">
-                    <span class="blue-grey-text">{{ market[11].price_btc }} </span><span class="red-text" v-bind:class="{ 'red-text': dash_perda, 'green-text': dash_lucro }">{{ market[11].percent_change_24h }}%</span>
-                </div>
-            </div>
-        </nav>
+    <div id="cripto-values">
+        <div class="chip" v-bind:style="bitcoin_bgc">
+            <img src="http://cashmanager.brian.place/public/img/btc.png" alt="btc">
+            <span class="blue-grey-text">$ {{ bitcoin_market.price_usd }} </span> <span v-bind:class="{ 'red-text': bitcoin_perda, 'green-text': bitcoin_lucro }">{{ bitcoin_market.percent_change_24h }}%</span>
+        </div>
+        <div class="chip" v-bind:style="coins_bgc">
+            <img src="http://cashmanager.brian.place/public/img/ltc.png" alt="ltc">
+            <span class="blue-grey-text">{{ market[5].price_btc }} </span> <span class="red-text" v-bind:class="{ 'red-text': litecoin_perda, 'green-text': litecoin_lucro }">{{ market[5].percent_change_24h }}%</span>
+        </div>
+        <div class="chip" v-bind:style="coins_bgc">
+            <img src="http://cashmanager.brian.place/public/img/eth.png" alt="eth">
+            <span class="blue-grey-text">{{ market[1].price_btc }} </span> <span class="red-text" v-bind:class="{ 'red-text': eth_perda, 'green-text': eth_lucro }">{{ market[1].percent_change_24h }}%</span>
+        </div>
+        <div class="chip" v-bind:style="coins_bgc">
+            <img src="http://cashmanager.brian.place/public/img/dash.png" alt="dash">
+            <span class="blue-grey-text">{{ market[11].price_btc }} </span><span class="red-text" v-bind:class="{ 'red-text': dash_perda, 'green-text': dash_lucro }">{{ market[11].percent_change_24h }}%</span>
+        </div>
     </div>
 </template>
 
@@ -195,18 +191,7 @@
 <style scoped>
 
     #cripto-values {
-        padding-left: 20px;
-    }
-
-    .chip-css {
-        display: inline-block;
-        padding: 0 15px;
-        height: 50px;
-        font-size: 16px;
-        line-height: 50px;
-        border-radius: 15px;
-        background-color: #f1f1f1;
-        transition: 1.5s;
+        /*padding-left: 20px;*/
     }
 
     .chip-css img {

@@ -11,7 +11,6 @@ window.VueCharts = require('vue-chartjs');
 window.Datepicker  = require('vuejs-datepicker');
 window.Moment = require('moment');
 window.jQuery = require('jquery');
-window.M = require('materialize-css');
 
 window.bus = new Vue();
 /**

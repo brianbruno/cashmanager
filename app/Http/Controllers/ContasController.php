@@ -227,6 +227,8 @@ class ContasController extends Controller {
         $transacoes = DB::table('transacoes')
             ->select(DB::raw('count(trans_id) as transacoes'))
             ->whereDay('created_at', date('d'))
+            ->whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
             ->get();
 
         return [$contas, $transacoes];

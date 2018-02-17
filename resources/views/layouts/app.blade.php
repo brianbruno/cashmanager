@@ -14,8 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/materialize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/hover.css') }}" rel="stylesheet">
-  
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">

@@ -30,29 +30,11 @@
     <div id="app">
         <header>
             <div class="container"><a href="#" data-target="slide-out" class="top-nav sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a></div>
-            <ul id="slide-out" class="sidenav sidenav-fixed blue-grey darken-3">
+
+            <ul id="slide-out" class="sidenav sidenav-fixed blue-grey darken-4">
                 <li class="logo center">
-                    <a id="logo-container" href="/" class="brand-logo white-text"><h4 class="tituloNavBar">CashManager</h4></a>
+                    <a id="logo-container" href="/" class="brand-logo white-text"><h5 class="tituloNavBar">CashManager</h5></a>
                 </li>
-
-                <div class="card blue-grey darken-4 hoverable">
-                    <div class="card-content">
-                        <div class="col s12">
-                            <i class="material-icons medium left white-text">account_box</i>
-                            <a href="{{ route('logout') }}" class="btn-flat waves-effect waves-red right red-text bold" onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();"><i class="material-icons">exit_to_app</i>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </div>
-                        <div class="col s12">
-                            <span class="title"><a class="white-text" href="{{ route('minha-conta') }}">{{ Auth::user()->name }}</a></span>
-
-                            <p class="white-text">{{ Auth::user()->email }}</p>
-                        </div>
-                    </div>
-                </div>
                 @if (MinhaContaController::showSaldoOnMenu() == 'S')
                 <div class="card grey darken-4 hoverable">
                     <div class="card-content">
@@ -70,7 +52,7 @@
                                     <li><a class="white-text" href="{{ route('abrir-conta') }}">Abrir/Fechar conta</a></li>
                                     <li><a class="white-text" href="{{ route('extrato-contas') }}">Extrato</a></li>
                                     <li><a class="white-text" href="{{ route('abrir-conta') }}">Excluir conta</a></li>
-                                    <li><a class="white-text" href="{{ route('contas') }}">Registrar movimentação</a></li>
+                                    <li><a class="white-text" href="{{ route('contas') }}">Nova movimentação</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -98,7 +80,29 @@
             </ul>
         </header>
         <main>
-            <valores-mercado></valores-mercado>
+            <div class="navbar-fixed hide-on-med-and-down">
+                <nav>
+                    <div class="nav-wrapper blue-grey lighten-5">
+                        <div class="row">
+                            <div class="col m8 l8 hide-on-med-and-down">
+                                <valores-mercado></valores-mercado>
+                            </div>
+                            <div class="col s12 m4 l4" id="controle-conta">
+                                <span id="nome-cliente"><a class="black-text" href="{{ route('minha-conta') }}">{{ Auth::user()->name }}</a></span>
+
+                                <a href="{{ route('logout') }}" class="btn red darken-4 waves-effect waves-red white-text" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();" id="btn-sair">Sair
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hide">
+                                    {{ csrf_field() }}
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
             <div class="content">
                 @yield('content')
             </div>
@@ -107,7 +111,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
     <script>
         $(document).ready(function() {
             $(".dropdown-trigger").dropdown();

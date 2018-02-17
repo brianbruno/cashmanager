@@ -25,3 +25,22 @@ header, main, footer {
 .itemNavBar {
   font-family: 'Quicksand', sans-serif;
 }
+
+#slide-out {
+  width: 205px;
+}
+
+#nome-cliente {
+  text-transform: uppercase;
+  font-family: 'Quicksand', sans-serif;
+}
+
+header, main, footer {
+  padding-left: 205px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
