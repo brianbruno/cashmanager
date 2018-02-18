@@ -11,6 +11,7 @@ window.VueCharts = require('vue-chartjs');
 window.Datepicker  = require('vuejs-datepicker');
 window.Moment = require('moment');
 window.jQuery = require('jquery');
+window.Chart = require('chart.js');
 
 window.bus = new Vue();
 /**
@@ -24,7 +25,6 @@ Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('saldo-conta', require('./components/contas/SaldoConta.vue'));
 Vue.component('investimentos', require('./components/Investimentos.vue'));
 Vue.component('sc-loading', require('./components/ScreenService/Loading.vue'));
-
 Vue.component('line-chart', require('./components/charts/ChartDashboard.vue'));
 Vue.component('line-chart-lucro-hora', require('./components/charts/ChartLucroHora.vue'));
 
@@ -68,6 +68,7 @@ Vue.component('niquelino-dashboard', require('./components/niquelino/NiquelinoDa
 Vue.component('niquelino-configuracoes', require('./components/niquelino/NiquelinoConfiguracoes.vue'));
 Vue.component('niquelino-saldo', require('./components/niquelino/NiquelinoSaldo.vue'));
 Vue.component('niquelino-ordens', require('./components/niquelino/NiquelinoOrdens.vue'));
+Vue.component('niquelino-chart-lucro-dia', require('./components/niquelino/charts/LucroPorDia.vue'))
 
 /**
  * Dashboard

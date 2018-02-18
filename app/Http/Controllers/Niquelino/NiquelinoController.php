@@ -44,13 +44,17 @@ class NiquelinoController extends Controller {
 
     }
 
-    public function getLucroBitCoin () {
+    public function getLucroBitCoin ($data = null, $json= true) {
         bcscale(8);
 
         $ganhos = DB::connection('mysql_niquelino')->table('ORDERS')
              ->select(DB::raw('(QUANTITY * RATE) AS GANHO'))
              ->where('TYPE', 'LIMIT_SELL')
              ->whereNotNull('CLOSED')
+             ->when($data, function ($query) use ($data) {
+                if(isset($data))
+                    return $query->where(DB::raw("date_format(ORDERS.CLOSED,'%d/%m/%Y')"), $data);
+             })
              ->get();
 
         $lucro = 0.0;
@@ -60,8 +64,37 @@ class NiquelinoController extends Controller {
         }
 
         $total = bcmul($lucro, '0.01000000');
+        $conv = $this->convertBtc($total);
 
-        return $this->resposta(array("lucro" => $total), 'json');
+        $totalBrl = number_format($conv['brl'], 2, ',', '.');
+        $totalUsd = number_format($conv['usd'], 2, ',', '.');
+
+        if($json) {
+            $resultado = $this->resposta(array("lucro" => $total, "lucrobrl" => $totalBrl, "lucrousd" => $totalUsd), 'json');
+        }
+        else
+            $resultado = $total;
+
+        return $resultado;
+    }
+
+    public function getLucroPorDia () {
+        $dias = [];
+        $lucros = [];
+
+        array_push($dias, date('d/m/Y', strtotime("-6 day")),
+            date('d/m/Y', strtotime("-5 day")), date('d/m/Y', strtotime("-4 day")),
+            date('d/m/Y', strtotime("-3 day")), date('d/m/Y', strtotime("-2 day")),
+            date('d/m/Y', strtotime('-1day')), date('d/m/Y'));
+
+        foreach ($dias as $dia) {
+            $lucroDia = $this->getLucroBitCoin($dia);
+            array_push($lucros, $lucroDia->original['lucro']);
+        }
+
+        $arrayLucro = array("lucros" => $lucros, "dias" => $dias);
+
+        return $this->resposta($arrayLucro, 'json');
     }
 
     public function getUltimaVenda () {
@@ -90,6 +123,34 @@ class NiquelinoController extends Controller {
             ->get();
 
         return $this->resposta(array("ordens" => $ordens), 'json');
+    }
+
+    private function convertBtc($btc) {
+        $url = "https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=BRL";
+        $data = $this->request($url)[0];
+
+        $usd = bcmul($btc, $data['price_usd'], 2);
+        $brl = bcmul($btc, $data['price_brl'], 2);
+
+        return array(
+            'brl' => $brl,
+            'usd' => $usd
+        );
+    }
+
+    private function request($url) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($data, true);
     }
 
 }

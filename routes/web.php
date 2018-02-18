@@ -202,4 +202,11 @@ Route::prefix('niquelino')->group(function () {
         return $niquelinoController ->getOrdens();
     })->middleware('auth')->name('niquelino.ordens');
 
+    Route::prefix('charts')->group(function () {
+        Route::get('/getLucroPorDia', function(){
+            $niquelinoController = app()->make('\App\Http\Controllers\Niquelino\NiquelinoController');
+            return $niquelinoController ->getLucroPorDia();
+        })->middleware('auth')->name('niquelino.charts.lucropordia');
+    });
+
 });

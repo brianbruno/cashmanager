@@ -3,15 +3,15 @@
     <div>
         <div class="row">
             <div class="col s12 m6">
+                <niquelino-saldo></niquelino-saldo>
                 <saldo-conta></saldo-conta>
-                <lucro></lucro>
             </div>
             <div class="col s12 m6">
-                <investimentos></investimentos>
+                <niquelino-chart-lucro-dia></niquelino-chart-lucro-dia>
             </div>
         </div>
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m12 l6">
                 <div class="card green lighten-5 z-depth-2 card-chart">
                     <div class="card-content black-text">
                         <span class="card-title black-text">Lucro por dia</span>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6">
+            <div class="col s12 m12 l6">
                 <div class="card green lighten-5 z-depth-2 card-chart">
                     <div class="card-content black-text">
                         <span class="card-title black-text">Lucro por hora</span>
@@ -30,7 +30,11 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col s12">
+                <investimentos></investimentos>
+            </div>
+        </div>
     </div>
 </template>
 

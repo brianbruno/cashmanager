@@ -28,7 +28,7 @@
             setInterval(function(){
                 t.carregarMercadoBitCoin();
                 t.carregarMercado();
-            }, 60000);
+            }, 120000);
         },
         data () {
             return {

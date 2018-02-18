@@ -2,12 +2,14 @@
     <div class="col s12">
         <div class="card orange lighten-5 z-depth-2">
             <div class="card-content" id="divLucro">
-                <span class="card-title black-text">Saldo Niquelino Bot</span>
+                <span class="card-title black-text">Lucro Niquelino</span>
                 <div class="center-align">
                     <div id="exibirLucro">
                         <sc-loading v-show="isLoadingLucro"></sc-loading>
                         <div id="lucroContas" class="center-align" v-show="!isLoadingLucro">
-                            <h5 class="deep-orange-text">{{ lucro }} BTC</h5>
+                            <h5 class="black-text">{{ lucro }} BTC</h5>
+                            <h6 class="black-text">R$ {{ lucrobrl }}</h6>
+                            <h6 class="black-text">U$ {{ lucrousd }}</h6>
                         </div>
                     </div>
                 </div>
@@ -24,6 +26,8 @@
         data () {
             return {
                 lucro: [],
+                lucrobrl: [],
+                lucrousd: [],
                 isLoadingLucro: false,
                 exibirLucro: false,
             }
@@ -43,6 +47,8 @@
                 this.$http.get('/niquelino/getlucro').then(
                     response=> {
                         t.lucro = response.body.lucro;
+                        t.lucrobrl = response.body.lucrobrl;
+                        t.lucrousd = response.body.lucrousd;
                     },
                     error=>{
                         console.log(error)
