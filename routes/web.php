@@ -187,4 +187,19 @@ Route::prefix('niquelino')->group(function () {
 
     Route::view('/configuracoes', 'niquelino.configuracoes')->middleware('auth')->name('niquelino.configuracoes');
 
+    Route::get('/getlucro', function(){
+        $niquelinoController = app()->make('\App\Http\Controllers\Niquelino\NiquelinoController');
+        return $niquelinoController ->getLucroBitCoin();
+    })->middleware('auth')->name('niquelino.lucro');
+
+    Route::get('/ultimavenda', function(){
+        $niquelinoController = app()->make('\App\Http\Controllers\Niquelino\NiquelinoController');
+        return $niquelinoController ->getUltimaVenda();
+    })->middleware('auth')->name('niquelino.ultimavenda');
+
+    Route::get('/getOrdens', function(){
+        $niquelinoController = app()->make('\App\Http\Controllers\Niquelino\NiquelinoController');
+        return $niquelinoController ->getOrdens();
+    })->middleware('auth')->name('niquelino.ordens');
+
 });

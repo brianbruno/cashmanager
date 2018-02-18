@@ -8,12 +8,12 @@
                 <div class="col s12">
                     <div class="card orange lighten-5 z-depth-2">
                         <div class="card-content" id="divLucro">
-                            <span class="card-title black-text">Niquelino Bot</span>
+                            <span class="card-title black-text">Ultima venda</span>
                             <div class="center-align">
                                 <div id="exibirLucro">
-                                    <sc-loading v-show="isLoadingLucro"></sc-loading>
-                                    <div id="lucroContas" class="center-align" v-show="!isLoadingLucro">
-                                        <h5 class="black-text">Vendendo 0,00054 BTC a U$ 14.369,85</h5>
+                                    <sc-loading v-show="isLoading"></sc-loading>
+                                    <div id="lucroContas" class="center-align" v-show="!isLoading">
+                                        <h5 class="black-text">{{ ultimaVenda }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -33,41 +33,35 @@
 <script>
     export default {
         mounted() {
-
+            this.carregarUltimaVenda();
         },
         data () {
             return {
-                lucro: [],
-                isLoadingLucro: false,
-                exibirLucro: false,
+                isLoading: false,
+                ultimaVenda: '01/02/2018',
             }
         },
         methods: {
-            showLoadingLucro(){
-                this.isLoadingLucro = true;
+            showLoading(){
+                this.isLoading = true;
             },
-            hideLoadingLucro(){
-                this.isLoadingLucro = false;
+            hideLoading(){
+                this.isLoading = false;
             },
-            carregarLucro(){
+            carregarUltimaVenda(){
 
                 let t = this;
-                this.showLoadingLucro();
+                this.showLoading();
 
-                this.$http.get('/home/getLucro/json').then(
+                this.$http.get('/niquelino/ultimavenda').then(
                     response=> {
-                        t.lucro = response.body.lucro[0].lucro;
+                        t.ultimaVenda = response.body.ultimaVenda;
                     },
                     error=>{
                         console.log(error)
                     }).finally(function () {
-                    t.hideLoadingLucro();
-                })
-
-            },
-            clickExibirLucro(){
-                this.exibirLucro = true;
-                this.carregarLucro();
+                        t.hideLoading();
+                });
             },
         },
     }

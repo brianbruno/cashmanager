@@ -44,4 +44,52 @@ class NiquelinoController extends Controller {
 
     }
 
+    public function getLucroBitCoin () {
+        bcscale(8);
+
+        $ganhos = DB::connection('mysql_niquelino')->table('ORDERS')
+             ->select(DB::raw('(QUANTITY * RATE) AS GANHO'))
+             ->where('TYPE', 'LIMIT_SELL')
+             ->whereNotNull('CLOSED')
+             ->get();
+
+        $lucro = 0.0;
+
+        foreach ($ganhos as $ganho) {
+            $lucro = $lucro + $ganho->GANHO;
+        }
+
+        $total = bcmul($lucro, '0.01000000');
+
+        return $this->resposta(array("lucro" => $total), 'json');
+    }
+
+    public function getUltimaVenda () {
+
+        $ultimaVenda = DB::connection('mysql_niquelino')->table('ORDERS')
+            ->select(DB::raw('UNIX_TIMESTAMP(CLOSED) as ultimavenda'))
+            ->where('TYPE', 'LIMIT_SELL')
+            ->whereNotNull('CLOSED')
+            ->latest('CLOSED')
+            ->limit(1)
+            ->get();
+
+        $dataUltimaVenda = $ultimaVenda[0]->ultimavenda;
+
+        $data = date("d/m/Y H:i:s", $dataUltimaVenda);
+
+
+        return $this->resposta(array("ultimaVenda" => $data), 'json');
+    }
+
+    public function getOrdens () {
+        $ordens = DB::connection('mysql_niquelino')->table('ORDERS')
+            ->select('MARKET' ,'TYPE', 'QUANTITY', 'RATE', 'QUANTITYREMAINING', DB::raw('DATE_FORMAT(OPENED, "%d/%m/%Y %H:%i:%s") as OPENED'))
+            ->latest('OPENED')
+            ->limit(25)
+            ->get();
+
+        return $this->resposta(array("ordens" => $ordens), 'json');
+    }
+
 }

@@ -7,7 +7,7 @@
                     <div id="exibirLucro">
                         <sc-loading v-show="isLoadingLucro"></sc-loading>
                         <div id="lucroContas" class="center-align" v-show="!isLoadingLucro">
-                            <h5 class="deep-orange-text">0,00054 BTC</h5>
+                            <h5 class="deep-orange-text">{{ lucro }} BTC</h5>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
 <script>
     export default {
         mounted() {
-
+            this.carregarLucro();
         },
         data () {
             return {
@@ -34,6 +34,22 @@
             },
             hideLoadingLucro(){
                 this.isLoadingLucro = false;
+            },
+            carregarLucro(){
+
+                let t = this;
+                this.showLoadingLucro();
+
+                this.$http.get('/niquelino/getlucro').then(
+                    response=> {
+                        t.lucro = response.body.lucro;
+                    },
+                    error=>{
+                        console.log(error)
+                    }).finally(function () {
+                    t.hideLoadingLucro();
+                })
+
             },
         },
     }
