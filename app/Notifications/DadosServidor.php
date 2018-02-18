@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Http\Controllers\Niquelino\NiquelinoController;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -58,6 +59,7 @@ class DadosServidor extends Notification
     {
         $contas = $this->dados[0];
         $transacoes = $this->dados[1];
+        $ultimaVenda = NiquelinoController::getUltimaVenda(false);
 
         return (new SlackMessage)
             ->success()
@@ -65,6 +67,7 @@ class DadosServidor extends Notification
             ->content("## CashManager ##\n\n" .
             "Contas cadastradas: " . $contas[0]->contas . "\n"
             ."Transações hoje: " . $transacoes[0]->transacoes . "\n"
+            ."Ultima operação do Niquelino: " . $ultimaVenda . "\n"
             ."\nUm beijo, CashManager Bot");
     }
 

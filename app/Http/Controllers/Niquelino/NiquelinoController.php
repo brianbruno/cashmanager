@@ -97,7 +97,7 @@ class NiquelinoController extends Controller {
         return $this->resposta($arrayLucro, 'json');
     }
 
-    public function getUltimaVenda () {
+    public function getUltimaVenda ($json = true) {
 
         $ultimaVenda = DB::connection('mysql_niquelino')->table('ORDERS')
             ->select(DB::raw('UNIX_TIMESTAMP(CLOSED) as ultimavenda'))
@@ -111,8 +111,13 @@ class NiquelinoController extends Controller {
 
         $data = date("d/m/Y H:i:s", $dataUltimaVenda);
 
+        if($json) {
+            $resultado = $this->resposta(array("ultimaVenda" => $data), 'json');
+        }
+        else
+            $resultado = $data;
 
-        return $this->resposta(array("ultimaVenda" => $data), 'json');
+        return $resultado;
     }
 
     public function getOrdens () {

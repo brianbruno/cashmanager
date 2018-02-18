@@ -226,6 +226,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'ContaController' => App\Http\Controllers\ContasController::class,
         'MinhaContaController' => App\Http\Controllers\Auth\MinhaContaController::class,
+        'NiquelinoController' => App\Http\Controllers\Niquelino\NiquelinoController::class
     ],
 
 ];
